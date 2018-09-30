@@ -6,7 +6,6 @@ namespace Shared.Constants
 {
     public static class ConnectionStrings
     {
-        public const string ApplicationConnectionString = "ApplicationConnection";
         public const string IdentityConnectionString = "IdentityConnection";
     }
 }

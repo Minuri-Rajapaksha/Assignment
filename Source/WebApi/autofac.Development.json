@@ -1,0 +1,14 @@
+﻿{
+  "components": [
+    {
+      // IApplicationDbFactory
+      "type": "Data.DbFactory.Application.ApplicationDbFactory, Data",
+      "services": [ { "type": "Data.Interfaces.DbFactory.Application.IApplicationDbFactory, Data" } ]
+    },
+    {
+      // IDatabaseInitializerService
+      "type": "Service.Application.DatabaseInitializerService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.IDatabaseInitializerService, Service" } ]
+    }
+  ]
+}

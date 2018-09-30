@@ -21,7 +21,7 @@ namespace Shared.Extensions
             }
         }
 
-        public static bool CompareHash(this string plainText, string hashText)
+        public static bool CompareHash(string plainText, string hashText)
         {
             return hashText.SequenceEqual(plainText.Sha256());
         }

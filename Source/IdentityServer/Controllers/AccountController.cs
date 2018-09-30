@@ -16,10 +16,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using Service.Interfaces.IdentityServer;
 using Shared.Model.DB.Application;
-using Shared.Extensions;
 
 namespace IdentityServer.Controllers
-{    
+{
     [AllowAnonymous]
     public class AccountController : Controller
     {
@@ -89,7 +88,7 @@ namespace IdentityServer.Controllers
                 // validate username/password against database
                 var user = await _userService.GetAsync(model.Username);
                 if (ValidateCredentials(model.Username, model.Password, user))
-                {                    
+                {
                     await _events.RaiseAsync(new UserLoginSuccessEvent(user.UserName, user.UserId.ToString(), user.UserName));
 
                     // only set explicit expiration here if user chooses "remember me". 
@@ -207,7 +206,7 @@ namespace IdentityServer.Controllers
                 var client = await _clientStore.FindEnabledClientByIdAsync(context.ClientId);
                 if (client != null)
                 {
-                    allowLocal = client.EnableLocalLogin;                    
+                    allowLocal = client.EnableLocalLogin;
                 }
             }
 
@@ -288,11 +287,12 @@ namespace IdentityServer.Controllers
             return vm;
         }
 
-        private bool ValidateCredentials(string userName, string passWord, User user) {
+        private bool ValidateCredentials(string userName, string passWord, User user)
+        {
             bool returnValue = false;
-            if(user != null)
+            if (user != null)
             {
-                returnValue = passWord.CompareHash(user.Password);
+                returnValue = Shared.Extensions.Hash.CompareHash(passWord, user.Password);
             }
             return returnValue;
         }

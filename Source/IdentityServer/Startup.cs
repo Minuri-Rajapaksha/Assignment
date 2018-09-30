@@ -1,15 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Autofac;
+﻿using Autofac;
 using Autofac.Configuration;
-using IdentityServer.Extensions;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Rewrite;
 using Microsoft.EntityFrameworkCore;
@@ -18,6 +11,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Logging;
 using Service.Interfaces.IdentityServer;
 using Shared.Constants;
+using System;
+using System.Reflection;
+using System.Threading.Tasks;
 
 namespace IdentityServer
 {
@@ -132,11 +128,7 @@ namespace IdentityServer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env)
         {
-            // Configure Content-Security-Policy
-            app.ConfigureSecurityHeaders(Configuration, Environment);
-
             // Exception handling configuration must be the first in the middleware pipeline.
-            // Every other middleware MUST come after this.
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();

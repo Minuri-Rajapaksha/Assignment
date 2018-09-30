@@ -24,7 +24,7 @@ namespace Data.DbFactory.Application
         }
 
         public ApplicationContext CreateDbContext()
-            => new ApplicationContext(new SqlConnection(this._configuration.GetConnectionString(ConnectionStrings.ApplicationConnectionString)));
+            => new ApplicationContext(new SqlConnection(this._configuration.GetConnectionString("ApplicationConnection")));
 
         public async Task EnsureMigrationAsync()
         {
@@ -37,9 +37,7 @@ namespace Data.DbFactory.Application
         }
 
         public override Task<IUnitOfWorkApplication> BeginUnitOfWorkAsync()
-        {
-            var uow = new UnitOfWorkApplication(CreateDbContext());
-            var iuow = (IUnitOfWorkApplication)uow;
+        {                   
             return Task.FromResult((IUnitOfWorkApplication)new UnitOfWorkApplication(CreateDbContext()));
         }
     }

@@ -25,5 +25,13 @@ namespace Service.IdentityServer
                 return uow.Users.Get().FirstOrDefault(u => u.UserName == userName);
             }
         }
+
+        public async Task<User> GetAsync(int userId)
+        {
+            using (var uow = await _identityDbFactory.BeginUnitOfWorkAsync())
+            {
+                return uow.Users.Get().FirstOrDefault(u => u.UserId == userId);
+            }
+        }
     }
 }

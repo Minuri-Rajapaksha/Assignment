@@ -35,14 +35,14 @@ namespace Data.DbFactory.IdentityServer
                         {
                             new ClientRedirectUris
                             {
-                                RedirectUri = "https://localhost:8081/signin-oidc",
+                                RedirectUri = "http://localhost:5896/signin-oidc",
                             }
                         },
                         ClientPostLogoutRedirectUris = new List<ClientPostLogoutRedirectUris>
                         {
                             new ClientPostLogoutRedirectUris
                             {
-                                PostLogoutRedirectUri = "https://localhost:8081/signout-oidc",
+                                PostLogoutRedirectUri = "http://localhost:5896/signout-oidc",
                             }
                         },
                         ClientGrantTypes = new List<ClientGrantTypes>
@@ -80,7 +80,7 @@ namespace Data.DbFactory.IdentityServer
                         {
                             new ClientCorsOrigins
                             {
-                                Origin = "https://localhost:8081"
+                                Origin = "http://localhost:5896"
                             }
                         }
                     };

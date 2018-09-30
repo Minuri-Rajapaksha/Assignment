@@ -9,5 +9,7 @@ namespace Service.Interfaces.IdentityServer
     public interface IUserService
     {
         Task<User> GetAsync(string userName);
+
+        Task<User> GetAsync(int userId);
     }
 }

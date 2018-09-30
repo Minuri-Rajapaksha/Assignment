@@ -27,8 +27,8 @@ namespace IdentityServer
 
             if (context.Caller == IdentityServerConstants.ProfileDataCallers.UserInfoEndpoint)
             {
-                var user = await _userService.GetAsync(context.Subject.FindFirst(JwtClaimTypes.Subject).Value);
-                claims.Add(new Claim(Claims.Role, user.RoleId.ToString()));
+                var user = await _userService.GetAsync(Int32.Parse(context.Subject.FindFirst(JwtClaimTypes.Subject).Value));
+                claims.Add(new Claim(ClaimType.Role, user.RoleId.ToString()));
             }           
         }
 
