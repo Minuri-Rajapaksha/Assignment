@@ -7,15 +7,15 @@ namespace Shared.Model.DB.Application
     {
         public Account()
         {
-            AccountBalance = new HashSet<AccountBalance>();
+            AccountPeriodBalance = new HashSet<AccountPeriodBalance>();
         }
 
         public int AccountId { get; set; }
         public string AccountName { get; set; }
         public int CreatedBy { get; set; }
-        public DateTimeOffset? CreatedDate { get; set; }
+        public DateTimeOffset CreatedDate { get; set; }
 
         public User CreatedByNavigation { get; set; }
-        public ICollection<AccountBalance> AccountBalance { get; set; }
+        public ICollection<AccountPeriodBalance> AccountPeriodBalance { get; set; }
     }
 }

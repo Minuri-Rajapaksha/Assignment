@@ -8,7 +8,7 @@ namespace Shared.Model.DB.Application
         public User()
         {
             Account = new HashSet<Account>();
-            AccountBalance = new HashSet<AccountBalance>();
+            AccountBalance = new HashSet<AccountPeriodBalance>();
         }
 
         public int UserId { get; set; }
@@ -17,6 +17,7 @@ namespace Shared.Model.DB.Application
         public string Password { get; set; }
 
         public ICollection<Account> Account { get; set; }
-        public ICollection<AccountBalance> AccountBalance { get; set; }
+        public Role Role { get; set; }
+        public ICollection<AccountPeriodBalance> AccountBalance { get; set; }
     }
 }

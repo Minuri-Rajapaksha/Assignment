@@ -3,17 +3,16 @@ using System.Collections.Generic;
 
 namespace Shared.Model.DB.Application
 {
-    public partial class Roles
+    public partial class Role
     {
-        public Roles()
-        {
-            RolePermission = new HashSet<RolePermission>();
+        public Role() {
+            User = new HashSet<User>();
         }
 
         public int RoleId { get; set; }
         public string RoleName { get; set; }
         public string Discription { get; set; }
 
-        public ICollection<RolePermission> RolePermission { get; set; }
+        public ICollection<User> User { get; set; }
     }
 }

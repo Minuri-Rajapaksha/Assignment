@@ -1,0 +1,19 @@
+﻿{
+  "components": [
+    {
+      // IIdentityDbFactory
+      "type": "Data.DbFactory.IdentityServer.IdentityDbFactory, Data",
+      "services": [ { "type": "Data.Interfaces.DbFactory.IdentityServer.IIdentityDbFactory, Data" } ]
+    },
+    {
+      // IDatabaseInitializerService
+      "type": "Service.IdentityServer.DatabaseInitializerService, Service",
+      "services": [ { "type": "Service.Interfaces.IdentityServer.IDatabaseInitializerService, Service" } ]
+    },
+    {
+      // IUserService
+      "type": "Service.IdentityServer.UserService, Service",
+      "services": [ { "type": "Service.Interfaces.IdentityServer.IUserService, Service" } ]
+    }
+  ]
+}
