@@ -20,11 +20,13 @@
     "@angular/platform-browser": "6.0.6",
     "@angular/platform-browser-dynamic": "6.0.6",
     "@angular/router": "6.0.6",
+    "@ngx-translate/core": "^10.0.2",
+    "@ngx-translate/http-loader": "^3.0.1",
+    "babel-polyfill": "6.26.0",
     "core-js": "2.5.7",
-    "rxjs": "6.2.1",
-    "zone.js": "0.8.26",
     "oidc-client": "1.5.2",
-    "babel-polyfill": "6.26.0"
+    "rxjs": "^6.2.1",
+    "zone.js": "0.8.26"
   },
   "devDependencies": {
     "@angular/compiler-cli": "6.0.6",

@@ -1,7 +1,7 @@
 
-<h1>StrightForward View</h1>
+<h1>{{ 'staightforwardview.title' | translate }}</h1>
 
-<p>This component demonstrates straightforward view of account balance period wise.</p>
+<p>{{ 'staightforwardview.description' | translate }}</p>
 
 <p *ngIf="!periodList"><em>Loading...</em></p>
 
@@ -12,8 +12,8 @@
 <table class='table' *ngIf="accountPeriodBalance">
   <thead>
     <tr>
-      <th>Account</th>
-      <th>Balance</th>
+      <th>{{ 'account' | translate }}</th>
+      <th>{{ 'balance' | translate }}</th>
     </tr>
   </thead>
   <tbody>
