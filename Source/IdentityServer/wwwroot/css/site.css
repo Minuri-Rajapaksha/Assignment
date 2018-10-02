@@ -35,3 +35,11 @@ body {
         display: none;
     }
 }
+
+.loginform {
+    margin-left: 293px;
+}
+
+.logintitle {
+    text-align: center;
+}
