@@ -36,6 +36,10 @@ namespace Data.DbFactory.IdentityServer
                             new ClientRedirectUris
                             {
                                 RedirectUri = "http://localhost:5896/signin-oidc",
+                            },
+                            new ClientRedirectUris
+                            {
+                                RedirectUri = "https://webminuri.azurewebsites.net/signin-oidc",
                             }
                         },
                         ClientPostLogoutRedirectUris = new List<ClientPostLogoutRedirectUris>
@@ -43,6 +47,10 @@ namespace Data.DbFactory.IdentityServer
                             new ClientPostLogoutRedirectUris
                             {
                                 PostLogoutRedirectUri = "http://localhost:5896/signout-oidc",
+                            },
+                            new ClientPostLogoutRedirectUris
+                            {
+                                PostLogoutRedirectUri = "https://webminuri.azurewebsites.net/signout-oidc",
                             }
                         },
                         ClientGrantTypes = new List<ClientGrantTypes>
@@ -81,6 +89,10 @@ namespace Data.DbFactory.IdentityServer
                             new ClientCorsOrigins
                             {
                                 Origin = "http://localhost:5896"
+                            },
+                            new ClientCorsOrigins
+                            {
+                                Origin = "https://webminuri.azurewebsites.net"
                             }
                         }
                     };
