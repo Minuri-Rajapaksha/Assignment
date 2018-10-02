@@ -2,6 +2,7 @@
 using Service.Interfaces.Application;
 using Shared.Model.WebClientModel;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -23,8 +24,8 @@ namespace Service.Application
                 return uow.Periods.GetAll().Select(p => new PeriodModel
                 {
                     PeriodId = p.PeriodId,
-                    Discription = p.PeriodDate.Year + "-" + p.PeriodDate.Month
-                }).ToList();
+                    Discription = p.PeriodDate.Year + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(p.PeriodDate.Month)
+            }).ToList();
             }
         }
     }

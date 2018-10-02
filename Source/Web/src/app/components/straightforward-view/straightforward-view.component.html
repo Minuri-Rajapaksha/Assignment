@@ -1,10 +1,11 @@
+
 <h1>StrightForward View</h1>
 
 <p>This component demonstrates straightforward view of account balance period wise.</p>
 
 <p *ngIf="!periodList"><em>Loading...</em></p>
 
-<select (change)="getAccountBalanceForPeriod($event.target.value)">
+<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
     <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
   </select>
 
