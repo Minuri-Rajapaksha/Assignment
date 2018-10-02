@@ -23,7 +23,7 @@ export class AuthService {
       redirect_uri: 'http://localhost:5896/signin-oidc',
       // silent_redirect_uri should go to seperate html
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://localhost:5896/signin-silent-oidc.html',
+      silent_redirect_uri: 'http://localhost:5896/signin-oidc',
       // Check what is purpose of checkSessionInterval property
       checkSessionInterval: 1800,
       post_logout_redirect_uri: 'http://localhost:5896/signout-oidc',
