@@ -1,6 +1,7 @@
 ﻿using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Configuration;
 using Shared.Constants;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,14 @@ using System.Threading.Tasks;
 namespace WebApi.Security
 {
     public class ClaimsTransformer : IClaimsTransformation
-    {        
+    {
+        private readonly IConfiguration _configuration;
+
+        public ClaimsTransformer(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
         {
             var access_token = principal.FindFirst(ClaimType.AccessToken)?.Value;
@@ -37,7 +45,7 @@ namespace WebApi.Security
 
         private async Task<ClaimsPrincipal> BuildMatcherClaimsPrincipal(string accessToken, ClaimsPrincipal principal)
         {
-            var discoveryClient = new DiscoveryClient("https://localhost:5000");
+            var discoveryClient = new DiscoveryClient(_configuration.GetValue<string>(AppSettings.IdentityServerHost));
             var doc = await discoveryClient.GetAsync();
 
             if (doc.IsError)

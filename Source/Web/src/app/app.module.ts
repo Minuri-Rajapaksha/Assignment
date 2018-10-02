@@ -12,6 +12,10 @@ import { NavMenuComponent } from './components/nav-menu/nav-menu.component';
 import { AuthService } from './../services/auth-service';
 import { AuthGuardService } from './../services/auth-guard-service';
 import { SigninOidcComponent } from './components/signin-oidc/signin-oidc.component';
+import { StraightforwardViewComponent } from './components/straightforward-view/straightforward-view.component';
+import { ReportViewComponent } from './components/report-view/report-view.component';
+import { FormsModule } from '@angular/forms';
+import { ApiService } from '../services/api-service';
 
 @NgModule({
   declarations: [
@@ -20,15 +24,17 @@ import { SigninOidcComponent } from './components/signin-oidc/signin-oidc.compon
     CounterComponent,
     FetchDataComponent,
     NavMenuComponent,
-
-    SigninOidcComponent
+    SigninOidcComponent,
+    StraightforwardViewComponent,
+    ReportViewComponent
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule
   ],
-  providers: [AuthGuardService, AuthService],
+  providers: [AuthGuardService, AuthService, ApiService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

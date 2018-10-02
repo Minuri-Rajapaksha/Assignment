@@ -18,7 +18,7 @@ namespace Data.Repository
             this._context = context;
         }
 
-        public IQueryable<T> Get() => this._dbSet as IQueryable<T>;
+        public IQueryable<T> GetAll() => this._dbSet as IQueryable<T>;
         
         public T Insert(T entity)
         {

@@ -15,7 +15,7 @@ namespace Data.DbFactory.Application
         {
             using (var uow = await applicationDbFactory.BeginUnitOfWorkAsync())
             {
-                var admin = uow.Users.Get().FirstOrDefault(u => u.UserName == "Admin");
+                var admin = uow.Users.GetAll().FirstOrDefault(u => u.UserName == "Admin");
                 if(admin == null)
                 {
                     admin = new User
@@ -44,7 +44,7 @@ namespace Data.DbFactory.Application
                     await uow.SaveAsync();
                 }
 
-                var accountRandD = uow.Accounts.Get().FirstOrDefault(a => a.AccountName == "R&D");
+                var accountRandD = uow.Accounts.GetAll().FirstOrDefault(a => a.AccountName == "R&D");
                 if(accountRandD == null)
                 {
                     accountRandD = new Account

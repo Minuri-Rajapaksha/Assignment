@@ -25,7 +25,7 @@ export class AuthService {
       automaticSilentRenew: true,
       silent_redirect_uri: 'http://localhost:5896/signin-silent-oidc.html',
       // Check what is purpose of checkSessionInterval property
-      checkSessionInterval: 3600,
+      checkSessionInterval: 1800,
       post_logout_redirect_uri: 'http://localhost:5896/signout-oidc',
       response_type: 'id_token token',
       scope: 'openid profile webapi.full_access',

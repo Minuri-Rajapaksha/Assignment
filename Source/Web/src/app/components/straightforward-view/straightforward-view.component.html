@@ -1,0 +1,24 @@
+<h1>StrightForward View</h1>
+
+<p>This component demonstrates straightforward view of account balance period wise.</p>
+
+<p *ngIf="!periodList"><em>Loading...</em></p>
+
+<select (change)="getAccountBalanceForPeriod($event.target.value)">
+    <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+  </select>
+
+<table class='table' *ngIf="accountPeriodBalance">
+  <thead>
+    <tr>
+      <th>Account</th>
+      <th>Balance</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let item of accountPeriodBalance">
+      <td>{{ item.accountName }}</td>
+      <td>{{ item.balance }}</td>
+    </tr>
+  </tbody>
+</table>

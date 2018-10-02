@@ -29,7 +29,9 @@ namespace IdentityServer
             {
                 var user = await _userService.GetAsync(Int32.Parse(context.Subject.FindFirst(JwtClaimTypes.Subject).Value));
                 claims.Add(new Claim(ClaimType.Role, user.RoleId.ToString()));
-            }           
+            }
+
+            context.IssuedClaims = claims;
         }
 
         public Task IsActiveAsync(IsActiveContext context)

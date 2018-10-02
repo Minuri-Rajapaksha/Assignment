@@ -9,6 +9,16 @@
       // IDatabaseInitializerService
       "type": "Service.Application.DatabaseInitializerService, Service",
       "services": [ { "type": "Service.Interfaces.Application.IDatabaseInitializerService, Service" } ]
+    },
+    {
+      // IPeriodService
+      "type": "Service.Application.PeriodService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.IPeriodService, Service" } ]
+    },
+    {
+      // IAccountPeriodBalanceService
+      "type": "Service.Application.AccountPeriodBalanceService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.IAccountPeriodBalanceService, Service" } ]
     }
   ]
 }

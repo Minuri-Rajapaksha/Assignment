@@ -14,7 +14,7 @@ namespace Data.DbFactory.IdentityServer
         {
             using (var uow = await identityDbFactory.BeginUnitOfWorkAsync())
             {
-                var clientImplicitFlow = uow.Clients.Get().FirstOrDefault(c => c.ClientId == "grantTypeImplicit");
+                var clientImplicitFlow = uow.Clients.GetAll().FirstOrDefault(c => c.ClientId == "grantTypeImplicit");
                 if (clientImplicitFlow == null)
                 {
                     clientImplicitFlow = new Clients
@@ -26,9 +26,9 @@ namespace Data.DbFactory.IdentityServer
                         ProtocolType = "oidc",
                         AllowAccessTokensViaBrowser = true,
                         RequireClientSecret = true,
-                        AccessTokenLifetime = 30,
-                        IdentityTokenLifetime = 45,
-                        SlidingRefreshTokenLifetime = 60,
+                        AccessTokenLifetime = 1800,
+                        IdentityTokenLifetime = 4500,
+                        SlidingRefreshTokenLifetime = 6000,
                         EnableLocalLogin = true,
                         IncludeJwtId = true,
                         ClientRedirectUris = new List<ClientRedirectUris>

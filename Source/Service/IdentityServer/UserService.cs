@@ -22,7 +22,7 @@ namespace Service.IdentityServer
         {
             using (var uow = await _identityDbFactory.BeginUnitOfWorkAsync())
             {
-                return uow.Users.Get().FirstOrDefault(u => u.UserName == userName);
+                return uow.Users.GetAll().FirstOrDefault(u => u.UserName == userName);
             }
         }
 
@@ -30,7 +30,7 @@ namespace Service.IdentityServer
         {
             using (var uow = await _identityDbFactory.BeginUnitOfWorkAsync())
             {
-                return uow.Users.Get().FirstOrDefault(u => u.UserId == userId);
+                return uow.Users.GetAll().FirstOrDefault(u => u.UserId == userId);
             }
         }
     }

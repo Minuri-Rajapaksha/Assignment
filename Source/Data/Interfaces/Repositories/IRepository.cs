@@ -8,7 +8,7 @@ namespace Data.Interfaces.Repositories
 {
     public interface IRepository<T> where T : class
     {
-        IQueryable<T> Get();
+        IQueryable<T> GetAll();
 
         T Insert(T entity);        
 
