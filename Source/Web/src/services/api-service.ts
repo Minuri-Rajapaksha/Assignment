@@ -1,11 +1,11 @@
-import { Injectable } from "@angular/core";
-import { RequestOptions, Headers } from "@angular/http";
+import { Injectable } from '@angular/core';
+import { RequestOptions, Headers } from '@angular/http';
 import { map } from 'rxjs/operators';
-import { catchError } from "rxjs/internal/operators/catchError";
-import { of, throwError, Observable } from "rxjs";
-import { AuthService } from "./auth-service";
-import { HttpErrorResponse, HttpClient } from "@angular/common/http";
-import Api from "../services/api-config.json";
+import { catchError } from 'rxjs/internal/operators/catchError';
+import { of, throwError, Observable } from 'rxjs';
+import { AuthService } from './auth-service';
+import { HttpErrorResponse, HttpClient } from '@angular/common/http';
+import Api from '../services/api-config.json';
 
 declare let apiBaseUrl: string;
 declare let faroUrl: string;
@@ -37,34 +37,34 @@ export class ApiService {
     private extractData(res: Response) {
         const body = res;
         return body || {};
-      }
-
-    get(url: string) :Observable<any> {       
-        var uri = this._baseUrl + url;
-        return this.http
-            .get(uri, this.authService.getAuthorizationHeaderValue())
-            .pipe(map(this.extractData), catchError(this.handleError));          
     }
 
-    getCustom(url: string) :Observable<any> {        
-        var uri = this._baseUrl + url;
+    get(url: string): Observable<any> {
+        const uri = this._baseUrl + url;
         return this.http
             .get(uri, this.authService.getAuthorizationHeaderValue())
             .pipe(map(this.extractData), catchError(this.handleError));
     }
 
-    post(url: string, data?: any) :Observable<any> {        
+    getCustom(url: string): Observable<any> {
+        const uri = this._baseUrl + url;
+        return this.http
+            .get(uri, this.authService.getAuthorizationHeaderValue())
+            .pipe(map(this.extractData), catchError(this.handleError));
+    }
+
+    post(url: string, data?: any): Observable<any> {
         return this.http.post(this._baseUrl + url, data, this.authService.getAuthorizationHeaderValue())
-        .pipe(map(this.extractData), catchError(this.handleError));
+            .pipe(map(this.extractData), catchError(this.handleError));
     }
 
-    delete(url: string, id: string) : Observable<any> {      
-        return this.http.delete(this._baseUrl + url + "/" + id, this.authService.getAuthorizationHeaderValue())
-            .pipe(map(this.extractData), catchError(this.handleError))
+    delete(url: string, id: string): Observable<any> {
+        return this.http.delete(this._baseUrl + url + '/' + id, this.authService.getAuthorizationHeaderValue())
+            .pipe(map(this.extractData), catchError(this.handleError));
     }
 
-    put(url: string, data?: any) : Observable<any> {    
+    put(url: string, data?: any): Observable<any> {
         return this.http.put(this._baseUrl + url, JSON.stringify(data), this.authService.getAuthorizationHeaderValue())
-        .pipe(map(this.extractData), catchError(this.handleError));
+            .pipe(map(this.extractData), catchError(this.handleError));
     }
 }

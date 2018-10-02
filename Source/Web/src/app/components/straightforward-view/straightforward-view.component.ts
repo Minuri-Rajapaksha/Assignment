@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiService } from '../../../services/api-service';
-import API from '../../../services/api-config.json'
+import API from '../../../services/api-config.json';
 import { AccountPeriodBalance } from '../../../entities/account-period-balance';
 import { Period } from '../../../entities/period';
 

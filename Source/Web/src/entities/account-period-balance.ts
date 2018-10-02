@@ -1,4 +1,4 @@
-export class AccountPeriodBalance {    
-    balance : number;
-    accountName : string;
+export class AccountPeriodBalance {
+    balance: number;
+    accountName: string;
 }

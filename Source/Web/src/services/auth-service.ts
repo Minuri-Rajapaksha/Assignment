@@ -49,13 +49,13 @@ export class AuthService {
   }
 
   startAuthentication(): Promise<void> {
-    sessionStorage.setItem("urlBeforeRedirectToLogin", window.location.href.split('/')[3]);
+    sessionStorage.setItem('urlBeforeRedirectToLogin', window.location.href.split('/')[3]);
     return this.manager.signinRedirect();
   }
 
   completeAuthentication(): Promise<void> {
     return this.manager.signinRedirectCallback().then(user => {
-      this.routeService.navigateByUrl(sessionStorage.getItem("urlBeforeRedirectToLogin"));
+      this.routeService.navigateByUrl(sessionStorage.getItem('urlBeforeRedirectToLogin'));
       this.user = user;
     });
   }

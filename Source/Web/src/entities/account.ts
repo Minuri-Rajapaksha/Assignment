@@ -1,6 +1,6 @@
-export class Account {  
+export class Account {
     accountId: number;
     accountName: string;
-    createdBy: number;    
+    createdBy: number;
     createdDate: Date;
 }

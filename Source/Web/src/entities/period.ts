@@ -1,4 +1,4 @@
-export class Period {        
+export class Period {
     periodId: number;
-    discription: string;   
+    discription: string;
 }
