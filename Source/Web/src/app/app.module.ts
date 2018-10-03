@@ -21,6 +21,9 @@ import { TranslateModule, TranslateLoader } from '@ngx-translate/core';
 import { TranslateHttpLoader } from '@ngx-translate/http-loader';
 import { HttpClient, HttpClientModule } from '@angular/common/http';
 
+// file upload
+import { FileSelectDirective } from 'ng2-file-upload';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,7 +33,8 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
     NavMenuComponent,
     SigninOidcComponent,
     StraightforwardViewComponent,
-    ReportViewComponent
+    ReportViewComponent,
+    FileSelectDirective
   ],
   imports: [
     BrowserModule,

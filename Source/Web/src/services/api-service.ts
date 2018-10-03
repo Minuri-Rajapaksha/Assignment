@@ -58,6 +58,11 @@ export class ApiService {
             .pipe(map(this.extractData), catchError(this.handleError));
     }
 
+    uploadFile(data?: any): Observable<any> {
+        return this.http.request(data, this.authService.getAuthorizationHeaderValue())
+            .pipe(map(this.extractData), catchError(this.handleError));
+    }
+
     delete(url: string, id: string): Observable<any> {
         return this.http.delete(this._baseUrl + url + '/' + id, this.authService.getAuthorizationHeaderValue())
             .pipe(map(this.extractData), catchError(this.handleError));
