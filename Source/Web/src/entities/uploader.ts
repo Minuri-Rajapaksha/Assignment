@@ -1,9 +1,11 @@
-import { UploadQueue } from '../entities/uploadqueue';
+import { Guid } from './guid';  
+  
+export class Uploader {  
+  id: string;  
+  file: File;
 
-export class Uploader {
-  queue: UploadQueue[];
-
-  constructor() {
-    this.queue = [];
-  }
-}
+  constructor(file: File) {  
+    this.file = file;
+    this.id = Guid.newGuid();
+  }  
+}  

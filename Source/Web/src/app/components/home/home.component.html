@@ -1,40 +1,32 @@
-
-
 <div class="row">
-  <div class="col-md-3">
+  <div class="col-md-3" *ngIf='uploader === undefined'>
     <h3>Select file</h3>
 
-    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" --> 
-    <input type="file" id="file" uploader="uploader" multiple (change)="onSelectChange($event)" *ngIf='uploader === undefined'/><br />
+    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
+    <input type="file" id="file" uploader="uploader" (change)="onSelectChange($event)" *ngIf='uploader === undefined' accept=".xlsx,.txt, .xlsm"/><br />
     <div id="result"></div>
-    <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)" (filesInvalidEmiter)="onFileInvalids($event)" >
-      <div style="height:100px;" class="text-wrapper">
+    <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)">
+      <div class="text-wrapper titlestyle">
         <div class="centered">Drop your file here!</div>
       </div>
     </div>
   </div>
-  <div class="col-md-9" style="margin-bottom: 40px"  *ngIf='uploader !== undefined'>
+  <div class="col-md-9 uploaded" *ngIf='uploader !== undefined'>
     <h3>Added File</h3>
-   
+
     <table class="table">
       <thead>
-        <tr >
+        <tr>
           <th width="50%">Name</th>
-          <th ng-show="uploader.isHTML5">Size</th>    
-          <th ng-show="uploader.isHTML5">Progress</th>      
+          <th ng-show="uploader.isHTML5">Size</th>
+          <th ng-show="uploader.isHTML5">Progress</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
             <strong>{{ uploader.file.name }}</strong>
-            <!-- Image preview -->
-            <!--auto height-->
-            <!--<div ng-thumb="{ file: item.file, width: 100 }"></div>-->
-            <!--auto width-->
             <div ng-show="uploader.isHTML5" ng-thumb="{ file: uploader._file, height: 100 }"></div>
-            <!--fixed width and height -->
-            <!--<div ng-thumb="{ file: item.file, width: 100, height: 100 }"></div>-->
           </td>
           <td ng-show="uploader.isHTML5" nowrap>{{ uploader.file.size/1024/1024 | number }} MB</td>
           <td ng-show="uploader.isHTML5">
@@ -46,7 +38,7 @@
       </tbody>
     </table>
     <div>
-     
+
       <button type="button" class="btn btn-success btn-s" (click)="upload()">
         <span class="glyphicon glyphicon-upload"></span> Upload
       </button>&nbsp;
