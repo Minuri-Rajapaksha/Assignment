@@ -8,5 +8,8 @@ namespace Shared.Constants
     {
         public const string AllowCors = "AppSettings:AllowCors";
         public const string IdentityServerHost = "AppSettings:IdentityServerHost";
+        public const string AzureKeyVaultName = "AppSettings:AzureKeyVaultName";
+        public const string AzureAdClientId = "AppSettings:AzureAdClientId";
+        public const string AzureAdClientSecret = "AppSettings:AzureAdClientSecret";
     }
 }
