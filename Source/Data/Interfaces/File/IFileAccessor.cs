@@ -1,4 +1,6 @@
-﻿using Shared.Model.WebClientModel;
+﻿using Shared.Model.ServerModel;
+using Shared.Model.WebClientModel;
+using Shared.Queue;
 using System.IO;
 using System.Threading.Tasks;
 
@@ -6,10 +8,8 @@ namespace Data.Interfaces.File
 {
     public interface IFileAccessor
     {
-        Task<bool> UploadFileAsync(Stream stream, string fileName, string fileType);
+        Task<bool> UploadFileAsync(Stream stream, FileUploadModel fileUploadModel);
 
-        string[] ReadTextFile(string filePath);
-
-        FileInfo ReadExcelFile(string filePath);
+        Task<string[]> ReadFileAsync(FileUploadModel fileUploadModel);
     }
 }

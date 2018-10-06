@@ -1,7 +1,9 @@
 ﻿using Data.Interfaces.File;
 using Microsoft.Extensions.Configuration;
 using Shared.Constants;
+using Shared.Model.ServerModel;
 using Shared.Model.WebClientModel;
+using Shared.Queue;
 using System;
 using System.IO;
 using System.Threading.Tasks;
@@ -17,17 +19,12 @@ namespace Data.File
             _configuration = configuration;
         }
 
-        public FileInfo ReadExcelFile(string filePath)
+        public Task<string[]> ReadFileAsync(FileUploadModel fileUploadModel)
         {
             throw new NotImplementedException();
         }
 
-        public string[] ReadTextFile(string filePath)
-        {
-            throw new NotImplementedException();
-        }
-
-        public Task<bool> UploadFileAsync(Stream stream, string fileName, string fileType)
+        public Task<bool> UploadFileAsync(Stream stream, FileUploadModel fileUploadModel)
         {
             throw new NotImplementedException();
         }

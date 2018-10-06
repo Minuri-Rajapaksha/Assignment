@@ -7,9 +7,16 @@ namespace Service.Application.BalanceFileUpload
 {
     public class LocalImportProcess : IImportProcess
     {
+        private readonly IBalanceFileImportProcess _balanceFileImportProcess;
+
+        public LocalImportProcess(IBalanceFileImportProcess balanceFileImportProcess)
+        {
+            _balanceFileImportProcess = balanceFileImportProcess;
+        }
+
         public async Task ProcessFileAsync(BalanceImportMessage message)
         {
-
+            await _balanceFileImportProcess.ProcessAsync(message);
         }
     }
 }

@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Shared.Queue;
 using Service.Interfaces.Application.BalanceFileUpload;
+using Shared.Model.ServerModel;
 
 namespace Service.Application
 {
@@ -45,10 +46,14 @@ namespace Service.Application
         {            
             var randomFileName = Path.Combine(Guid.NewGuid().ToString(), Path.GetExtension(fileName));
 
-            var fileUploadSuccess = await _fileAccessor.UploadFileAsync(stream, fileName, "Result");
-            if (fileUploadSuccess)
+            var fileUploadSuccess = await _fileAccessor.UploadFileAsync(stream, new FileUploadModel
             {
-                
+                FileName = fileName,
+                FileType = Shared.Enum.FileType.UploadDocument
+            });
+
+            if (fileUploadSuccess)
+            {                
                 await _importProcess.ProcessFileAsync(new BalanceImportMessage
                 {
                     FileName = randomFileName,

@@ -5,6 +5,7 @@ using OfficeOpenXml;
 using Service.Interfaces.Application.BalanceFileUpload;
 using Shared.Constants;
 using Shared.Model.DB.Application;
+using Shared.Model.ServerModel;
 using Shared.Queue;
 using System;
 using System.Collections.Generic;
@@ -31,7 +32,7 @@ namespace Service.Application.BalanceFileUpload
         public async Task ProcessAsync(BalanceImportMessage message)
         {
             Dictionary<string, decimal> accountBalances = new Dictionary<string, decimal>();
-            ReadDataFromFile(message, accountBalances);
+            await ReadDataFromFile(message, accountBalances);
             var responseMessage = new StringBuilder();
 
             if (accountBalances != null)
@@ -79,43 +80,19 @@ namespace Service.Application.BalanceFileUpload
             }
         }
 
-        private void ReadDataFromFile(BalanceImportMessage message, Dictionary<string, decimal> accountBalances)
+        private async Task ReadDataFromFile(BalanceImportMessage message, Dictionary<string, decimal> accountBalances)
         {
-            var folderPath = Path.Combine(_configuration.GetValue<string>(AppSettings.UploadFilePath));
-            var fullPath = Path.Combine(folderPath, message.FileName);
+            var content = await _fileAccessor.ReadFileAsync(new FileUploadModel {
+                FileName = message.FileName,
+                Extension = message.Extension,
+                FileType = Shared.Enum.FileType.UploadDocument
+            });
 
-            if (message.Extension == ".txt")
+            for (int i = 0; i < content.Length; i++)
             {
-                var content = _fileAccessor.ReadTextFile(fullPath);
-
-                for (int i = 0; i < content.Length; i++)
-                {
-                    var row = content[i];
-                    string[] rowArray = row.Split('\t');
-                    accountBalances.Add(rowArray[0], decimal.Parse(rowArray[1]));
-                }
-            }
-            else
-            {
-                var excelFile = _fileAccessor.ReadExcelFile(fullPath);
-
-                using (ExcelPackage package = new ExcelPackage(excelFile))
-                {
-                    ExcelWorksheet worksheet = package.Workbook.Worksheets[1];
-                    int rowCount = worksheet.Dimension.Rows;
-                    int ColCount = worksheet.Dimension.Columns;
-
-                    for (int row = 1; row <= rowCount; row++)
-                    {
-                        var rawText = string.Empty;
-                        for (int col = 1; col <= ColCount; col++)
-                        {
-                            rawText += worksheet.Cells[row, col].Value.ToString() + "\t";
-                        }
-                        string[] rowArray = rawText.Split('\t');
-                        accountBalances.Add(rowArray[0], decimal.Parse(rowArray[1]));
-                    }
-                }
+                var row = content[i];
+                string[] rowArray = row.Split('\t');
+                accountBalances.Add(rowArray[0], decimal.Parse(rowArray[1]));
             }
         }
     }

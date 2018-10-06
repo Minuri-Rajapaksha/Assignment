@@ -3,8 +3,7 @@ namespace Shared.Enum
 {
     public enum FileType
     {
-        Complete = 1,
-        Abandon = 2,
-        Dead = 3
+        UploadDocument = 1,
+        ResultDocument = 2
     }
 }
