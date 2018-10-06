@@ -25,7 +25,7 @@ namespace BalanceFileUpload
             {
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    await _balanceFileUpload.RunAsync(stoppingToken);
+                    await _balanceFileUpload.RunAsync();
                 }
             }
             catch (Exception ex)

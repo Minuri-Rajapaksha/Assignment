@@ -1,5 +1,6 @@
 ﻿
 using System;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Data.Interfaces.Queue
@@ -8,6 +9,6 @@ namespace Data.Interfaces.Queue
     {
         Task SendAsync(T item);
 
-        void Receive(Func<T, Shared.Enum.Queue> onProcess, Action<Exception> onError, Action onWait);
+        Task Receive(Func<T, Task> onProcess);
     }
 }

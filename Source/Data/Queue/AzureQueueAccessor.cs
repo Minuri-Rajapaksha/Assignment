@@ -22,14 +22,10 @@ namespace Data.Queue
             await _client.SendAsync(new Message(Encoding.UTF8.GetBytes(JsonConvert.SerializeObject(item))));
         }
 
-        public void Receive(
-            Func<T, Shared.Enum.Queue> onProcess,
-            Action<Exception> onError,
-            Action onWait)
+        public async Task Receive(Func<T, Task> onProcess)
         {
             var options = new MessageHandlerOptions(e =>
             {
-                onError(e.Exception);
                 return Task.CompletedTask;
             })
             {
@@ -47,22 +43,12 @@ namespace Data.Queue
                         T item = JsonConvert.DeserializeObject<T>(data);
 
                         // Process message  
-                        var result = onProcess(item);
-
-                        if (result == Shared.Enum.Queue.Complete)
-                            await _client.CompleteAsync(message.SystemProperties.LockToken);
-                        else if (result == Shared.Enum.Queue.Abandon)
-                            await _client.AbandonAsync(message.SystemProperties.LockToken);
-                        else if (result == Shared.Enum.Queue.Dead)
-                            await _client.DeadLetterAsync(message.SystemProperties.LockToken);
-
-                        // Wait for next message  
-                        onWait();
+                        await onProcess(item);
+                        await _client.CompleteAsync(message.SystemProperties.LockToken);
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
                         await _client.DeadLetterAsync(message.SystemProperties.LockToken);
-                        onError(ex);
                     }
                 }, options);
         }

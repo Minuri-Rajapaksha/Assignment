@@ -6,6 +6,6 @@ namespace Service.Interfaces.Application.BackgroundWorker
 {
     public interface IBalanceFileUpload
     {
-        Task RunAsync(CancellationToken cancellationToken);
+        Task RunAsync();
     }
 }
