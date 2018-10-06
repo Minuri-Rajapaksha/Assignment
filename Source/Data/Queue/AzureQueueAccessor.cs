@@ -2,6 +2,7 @@
 using Microsoft.Azure.ServiceBus;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
+using Shared.Constants;
 using System;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ namespace Data.Queue
 
         public AzureQueueAccessor(IConfiguration configuration)
         {
-            _client = new QueueClient(configuration.GetConnectionString("ServiceBus"), this.GetType().GetGenericArguments()[0].Name.ToLowerInvariant());
+            _client = new QueueClient(configuration.GetConnectionString(ConnectionStrings.ServiceBus), this.GetType().GetGenericArguments()[0].Name.ToLowerInvariant());
         }
 
         public async Task SendAsync(T item)

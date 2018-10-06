@@ -78,7 +78,7 @@ namespace IdentityServer
             });
 
             // Configuring IdentityServer 4
-            var connectionString = Configuration.GetConnectionString(ConnectionStrings.IdentityConnectionString);
+            var connectionString = Configuration.GetConnectionString(ConnectionStrings.IdentityConnection);
             var migrationsAssembly = typeof(Startup).GetTypeInfo().Assembly.GetName().Name;
             var idsBuilder = services.AddIdentityServer(options => { options.Csp.Level = IdentityServer4.Models.CspLevel.One; })
                 .AddProfileService<ProfileService>()

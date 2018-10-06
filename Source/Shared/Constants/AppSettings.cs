@@ -12,5 +12,6 @@ namespace Shared.Constants
         public const string AzureAdClientId = "AppSettings:AzureAdClientId";
         public const string AzureAdClientSecret = "AppSettings:AzureAdClientSecret";
         public const string FolderPath = "AppSettings:FolderPath";
+        public const string ContainerName = "AppSettings:ContainerName";
     }
 }

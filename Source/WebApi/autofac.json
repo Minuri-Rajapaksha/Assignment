@@ -22,8 +22,23 @@
     },
     {
       // IFileAccessor
-      "type": "Data.File.LocalFileAccessor, Data",
+      "type": "Data.File.AzureFileAccessor, Data",
       "services": [ { "type": "Data.File.Interfaces.IFileAccessor, Data" } ]
+    },
+    {
+      // IBalanceFileImportProcess
+      "type": "Service.Application.BalanceFileUpload.BalanceFileImportProcess, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IBalanceFileImportProcess, Service" } ]
+    },
+    {
+      // IImportProcess
+      "type": "Service.Application.BalanceFileUpload.QueueImportProcess, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IImportProcess, Service" } ]
+    },
+    {
+      // IQueueAccessor<FileUploadModel>
+      "type": "Data.Queue.AzureQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data",
+      "services": [ { "type": "Data.Interfaces.Queue.IQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data" } ]
     }
   ]
 }

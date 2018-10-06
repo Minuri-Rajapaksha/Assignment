@@ -6,6 +6,8 @@ namespace Shared.Constants
 {
     public static class ConnectionStrings
     {
-        public const string IdentityConnectionString = "IdentityConnection";
+        public const string IdentityConnection = "IdentityConnection";
+        public const string ServiceBus = "ServiceBus";
+        public const string BlobStorage = "BlobStorage";
     }
 }
