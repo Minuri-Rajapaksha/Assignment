@@ -1,14 +1,11 @@
-﻿using Microsoft.AspNetCore.Http;
-using Shared.Model.WebClientModel;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Shared.Model.WebClientModel;
+using System.IO;
 using System.Threading.Tasks;
 
 namespace Data.File.Interfaces
 {
     public interface IFileAccessor
     {
-        Task<FileUploadModel> UploadFile(IFormFile file);
+        Task<FileUploadModel> UploadFileAsync(Stream stream, string fileName);
     }
 }

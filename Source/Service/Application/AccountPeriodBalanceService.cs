@@ -1,6 +1,5 @@
 ﻿using Data.File.Interfaces;
 using Data.Interfaces.DbFactory.Application;
-using Microsoft.AspNetCore.Http;
 using OfficeOpenXml;
 using Service.Interfaces.Application;
 using Shared.Model.DB.Application;
@@ -38,10 +37,10 @@ namespace Service.Application
             }
         }
 
-        public async Task<string> UploadAndImportFile(IFormFile file, int periodId)
+        public async Task<string> UploadAndImportFile(int periodId, Stream stream, string fileName)
         {
             StringBuilder responseMessage = new StringBuilder();
-            var uploadSuccessModel = await _fileAccessor.UploadFile(file);
+            var uploadSuccessModel = await _fileAccessor.UploadFileAsync(stream, fileName);
             if (uploadSuccessModel != null)
             {
                 Dictionary<string, decimal> accountBalances = new Dictionary<string, decimal>();

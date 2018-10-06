@@ -1,14 +1,10 @@
 ﻿using Data.File.Interfaces;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Shared.Constants;
 using Shared.Model.WebClientModel;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Net.Http.Headers;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Data.File
@@ -22,7 +18,7 @@ namespace Data.File
             _configuration = configuration;
         }
 
-        public async Task<FileUploadModel> UploadFile(IFormFile file)
+        public async Task<FileUploadModel> UploadFileAsync(Stream stream, string fileName)
         {
             try
             {
@@ -31,25 +27,20 @@ namespace Data.File
                 {
                     Directory.CreateDirectory(newPath);
                 }
-                if (file.Length > 0)
+
+                string fullPath = Path.Combine(newPath, fileName);
+                stream.Position = 0;
+                using (var fileStream = new FileStream(fullPath, FileMode.CreateNew))
                 {
-                    string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                    string fullPath = Path.Combine(newPath, fileName);
-                    using (var stream = new FileStream(fullPath, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                    var result = new FileUploadModel
-                    {
-                        FilePath = fullPath,
-                        Extension = Path.GetExtension(fullPath)
-                    };
-                    return result;
+                    await stream.CopyToAsync(fileStream);
+                    fileStream.Close();
                 }
-                else
+
+                return new FileUploadModel
                 {
-                    return null;
-                }
+                    FilePath = fullPath,
+                    Extension = Path.GetExtension(fullPath)
+                };
             }
             catch (Exception)
             {

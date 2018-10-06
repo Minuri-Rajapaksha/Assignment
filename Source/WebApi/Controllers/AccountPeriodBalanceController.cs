@@ -36,14 +36,14 @@ namespace WebApi.Controllers
             {
                 var file = Request.Form.Files[0];
                 var periodId = Request.Form["PERIOD"][0];
-                var result = await _accountPeriodBalanceService.UploadAndImportFile(file, Int32.Parse(periodId));
+                var result = await _accountPeriodBalanceService.UploadAndImportFile(Int32.Parse(periodId), file.OpenReadStream(), file.FileName);
 
-                return JsonConvert.SerializeObject(result);                
+                return JsonConvert.SerializeObject(result);
             }
             catch (Exception ex)
             {
                 return ("Upload Failed: " + ex.Message);
-            }            
+            }
         }
     }
 }
