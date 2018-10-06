@@ -1,0 +1,8 @@
+﻿{
+  "components": [
+    {
+      // IApplicationDbFactory
+      "type": "Data.DbFactory.Application.ApplicationDbFactory, Data",
+      "services": [ { "type": "Data.Interfaces.DbFactory.Application.IApplicationDbFactory, Data" } ]
+    }
+}
