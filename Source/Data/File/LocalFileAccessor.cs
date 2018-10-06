@@ -1,10 +1,9 @@
-﻿using Data.File.Interfaces;
+﻿using Data.Interfaces.File;
 using Microsoft.Extensions.Configuration;
 using Shared.Constants;
 using Shared.Model.WebClientModel;
 using System;
 using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace Data.File

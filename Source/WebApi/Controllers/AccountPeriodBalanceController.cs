@@ -1,13 +1,10 @@
-﻿using Data.File.Interfaces;
-using Microsoft.AspNetCore.Hosting;
+﻿using Data.Interfaces.File;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Service.Interfaces.Application;
 using Shared.Model.WebClientModel;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Net.Http.Headers;
 using System.Threading.Tasks;
 
 namespace WebApi.Controllers

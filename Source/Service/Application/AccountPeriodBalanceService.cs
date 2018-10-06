@@ -1,4 +1,4 @@
-﻿using Data.File.Interfaces;
+﻿using Data.Interfaces.File;
 using Data.Interfaces.DbFactory.Application;
 using OfficeOpenXml;
 using Service.Interfaces.Application;

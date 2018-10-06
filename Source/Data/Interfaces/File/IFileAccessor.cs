@@ -2,7 +2,7 @@
 using System.IO;
 using System.Threading.Tasks;
 
-namespace Data.File.Interfaces
+namespace Data.Interfaces.File
 {
     public interface IFileAccessor
     {
