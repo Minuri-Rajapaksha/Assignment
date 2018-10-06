@@ -6,6 +6,6 @@ namespace Service.Interfaces.Application.BalanceFileUpload
 {
     public interface IImportProcess
     {
-        Task ProcessFile(BalanceImportMessage message);
+        Task ProcessFileAsync(BalanceImportMessage message);
     }
 }

@@ -1,6 +1,5 @@
 ﻿using Data.Interfaces.File;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using Service.Interfaces.Application;
 using Shared.Model.WebClientModel;
 using System;
@@ -27,19 +26,17 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<string> SaveUploadFile()
+        public async Task<bool> SaveUploadFile()
         {
             try
             {
                 var file = Request.Form.Files[0];
                 var periodId = Request.Form["PERIOD"][0];
-                var result = await _accountPeriodBalanceService.UploadAndImportFile(Int32.Parse(periodId), file.OpenReadStream(), file.FileName);
-
-                return JsonConvert.SerializeObject(result);
+                return await _accountPeriodBalanceService.UploadAndImportFile(Int32.Parse(periodId), file.OpenReadStream(), file.FileName);
             }
             catch (Exception ex)
             {
-                return ("Upload Failed: " + ex.Message);
+                return false;
             }
         }
     }

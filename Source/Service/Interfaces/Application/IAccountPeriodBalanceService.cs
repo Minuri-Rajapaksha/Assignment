@@ -9,6 +9,6 @@ namespace Service.Interfaces.Application
     {
         Task<List<AccountPeriodBalanceModel>> GetAccountBalanceForPeriodAsync(int periodId);
 
-        Task<string> UploadAndImportFile(int periodId, Stream stream, string fileName);
+        Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName);
     }
 }

@@ -17,35 +17,33 @@ namespace Data.File
             _configuration = configuration;
         }
 
-        public async Task<FileUploadModel> UploadFileAsync(Stream stream, string fileName)
+        public async Task<bool> UploadFileAsync(Stream stream, string fileName, string fileType)
         {
-            try
+            var folderPath = Path.Combine(_configuration.GetValue<string>(AppSettings.UploadFilePath));
+            if (!Directory.Exists(folderPath))
             {
-                string newPath = Path.Combine(_configuration.GetValue<string>(AppSettings.UploadFilePath));
-                if (!Directory.Exists(newPath))
-                {
-                    Directory.CreateDirectory(newPath);
-                }
-
-                string fullPath = Path.Combine(newPath, fileName);
-                stream.Position = 0;
-                using (var fileStream = new FileStream(fullPath, FileMode.CreateNew))
-                {
-                    await stream.CopyToAsync(fileStream);
-                    fileStream.Close();
-                }
-
-                return new FileUploadModel
-                {
-                    FilePath = fullPath,
-                    Extension = Path.GetExtension(fullPath)
-                };
+                Directory.CreateDirectory(folderPath);
             }
-            catch (Exception)
+
+            string fullPath = Path.Combine(folderPath, fileName);
+            stream.Position = 0;
+            using (var fileStream = new FileStream(fullPath, FileMode.CreateNew))
             {
-                return null;
-                throw;
+                await stream.CopyToAsync(fileStream);
+                fileStream.Close();
             }
+
+            return true;
+        }
+
+        public string[] ReadTextFile(string filePath)
+        {            
+            return System.IO.File.ReadAllLines(filePath);
+        }
+
+        public FileInfo ReadExcelFile(string filePath)
+        {
+            return new FileInfo(filePath);
         }
     }
 }

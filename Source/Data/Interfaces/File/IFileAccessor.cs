@@ -6,6 +6,10 @@ namespace Data.Interfaces.File
 {
     public interface IFileAccessor
     {
-        Task<FileUploadModel> UploadFileAsync(Stream stream, string fileName);
+        Task<bool> UploadFileAsync(Stream stream, string fileName, string fileType);
+
+        string[] ReadTextFile(string filePath);
+
+        FileInfo ReadExcelFile(string filePath);
     }
 }
