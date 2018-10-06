@@ -1,4 +1,5 @@
-﻿using Shared.Model.WebClientModel;
+﻿using Microsoft.AspNetCore.Http;
+using Shared.Model.WebClientModel;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -9,5 +10,6 @@ namespace Service.Interfaces.Application
     public interface IAccountPeriodBalanceService
     {
         Task<List<AccountPeriodBalanceModel>> GetAccountBalanceForPeriodAsync(int periodId);
+        Task<string> UploadAndImportFile(IFormFile file, int periodId);
     }
 }

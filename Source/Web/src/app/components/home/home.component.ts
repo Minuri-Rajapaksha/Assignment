@@ -1,18 +1,41 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http'
 import { Uploader } from '../../../entities/uploader';
 import { ApiService } from '../../../services/api-service';
+import { Period } from '../../../entities/period';
+import API from '../../../services/api-config.json';
 
 @Component({
     selector: 'app-home',
     templateUrl: './home.component.html',
     styleUrls: ['./home.component.scss']
 })
-export class HomeComponent {
+export class HomeComponent implements OnInit {
 
-    public uploader: Uploader;
+    uploader: Uploader;
+    periodList: Period[];
+    selectedPeriod: number;
+    uploadOk: string = "";
 
     constructor(private http: HttpClient, private _apiService: ApiService) { }
+
+    ngOnInit() {
+        this.getAllPeriods();
+    }
+
+    getAllPeriods() {
+        this._apiService.get(API.period.getDropdownList)
+            .subscribe(res => {
+                this.periodList = res;
+            },
+                err => {
+                    console.error(`Error occured retrieving resource canlendar ${err}`);
+                });
+    }
+
+    setPeriod(periodId: number) {
+        this.selectedPeriod = periodId;
+    }
 
     onSelectChange(event: EventTarget) {
         let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
@@ -26,7 +49,7 @@ export class HomeComponent {
         }
         if (extension === 'xlsx' || extension === 'txt' || extension === 'xlsm') {
             if (file) {
-                this.uploader = new Uploader(file);                
+                this.uploader = new Uploader(file);
             }
         }
         else {
@@ -36,26 +59,34 @@ export class HomeComponent {
 
     // upload   
     upload() {
+        this.uploadOk = undefined;
         if (this.uploader.id == null)
             return;
+        if (this.selectedPeriod === undefined) {
+            alert("Please select period");
+            return;
+        }
 
         let selectedFile = this.uploader;
         if (selectedFile) {
             const formData = new FormData();
             formData.append(selectedFile.file.name, selectedFile.file);
+            formData.append('PERIOD', this.selectedPeriod.toString());
 
-           // this._apiService.uploadFile('accountperiodbalance', formData)
-            this._apiService.post('accountperiodbalance', formData)
-              .subscribe(res => {
-                if (res.type === HttpEventType.UploadProgress) {
-                  // selectedFile.progress = Math.round(100 * res.loaded / res.total);
-                  // console.log(selectedFile.progress);
-                }
-              },
-                err => {
-                  console.error(`Error occured retrieving resource canlendar ${err}`);
-                });
-
+            // this._apiService.uploadFile('accountperiodbalance', formData)
+            this._apiService.post(API.fileupload, formData)
+                .subscribe(res => {
+                    this.uploadOk = "ok";
+                    alert(res);
+                    this.uploader = undefined;
+                    if (res.type === HttpEventType.UploadProgress) {
+                        // selectedFile.progress = Math.round(100 * res.loaded / res.total);
+                        // console.log(selectedFile.progress);
+                    }
+                },
+                    err => {
+                        console.error(`Error occured retrieving resource canlendar ${err}`);
+                    });                   
             // this._apiService.upload('accountperiodbalance', this.uploader.file)
             // .subscribe(
             //   event => {

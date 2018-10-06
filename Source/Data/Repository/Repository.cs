@@ -29,6 +29,6 @@ namespace Data.Repository
         {
             this._dbSet.Attach(entity);
             this._context.Entry(entity).State = EntityState.Modified;
-        }       
+        }        
     }
 }

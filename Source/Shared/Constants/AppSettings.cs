@@ -11,5 +11,6 @@ namespace Shared.Constants
         public const string AzureKeyVaultName = "AppSettings:AzureKeyVaultName";
         public const string AzureAdClientId = "AppSettings:AzureAdClientId";
         public const string AzureAdClientSecret = "AppSettings:AzureAdClientSecret";
+        public const string UploadFilePath = "AppSettings:UploadFilePath";
     }
 }

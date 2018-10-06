@@ -19,6 +19,11 @@
       // IAccountPeriodBalanceService
       "type": "Service.Application.AccountPeriodBalanceService, Service",
       "services": [ { "type": "Service.Interfaces.Application.IAccountPeriodBalanceService, Service" } ]
+    },
+    {
+      // IFileAccessor
+      "type": "Data.File.LocalFileAccessor, Data",
+      "services": [ { "type": "Data.File.Interfaces.IFileAccessor, Data" } ]
     }
   ]
 }

@@ -1,9 +1,16 @@
+<p *ngIf="!periodList"><em>Loading...</em></p>
+<select *ngIf="periodList" id='soflow' [(ngModel)]="selectedPeriod" (change)="setPeriod($event.target.value)">
+  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+</select>
+
 <div class="row">
+
   <div class="col-md-3" *ngIf='uploader === undefined'>
     <h3>Select file</h3>
 
     <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-    <input type="file" id="file" uploader="uploader" (change)="onSelectChange($event)" *ngIf='uploader === undefined' accept=".xlsx,.txt, .xlsm"/><br />
+    <input type="file" id="file" uploader="uploader" (change)="onSelectChange($event)" *ngIf='uploader === undefined'
+      accept=".xlsx,.txt, .xlsm" /><br />
     <div id="result"></div>
     <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)">
       <div class="text-wrapper titlestyle">
@@ -30,9 +37,10 @@
           </td>
           <td ng-show="uploader.isHTML5" nowrap>{{ uploader.file.size/1024/1024 | number }} MB</td>
           <td ng-show="uploader.isHTML5">
-            <div class="progress" style="margin-bottom: 0;">
+            <!-- <div class="progress" style="margin-bottom: 0;">
               <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-            </div>
+            </div> -->
+            <p *ngIf="uploadOk === undefined"><em>Uploading...</em></p>
           </td>
         </tr>
       </tbody>

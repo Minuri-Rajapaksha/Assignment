@@ -1,5 +1,7 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿using Data.File.Interfaces;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using Service.Interfaces.Application;
 using Shared.Model.WebClientModel;
 using System;
@@ -15,12 +17,10 @@ namespace WebApi.Controllers
     public class AccountPeriodBalanceController : ControllerBase
     {
         private readonly IAccountPeriodBalanceService _accountPeriodBalanceService;
-        private readonly IHostingEnvironment _hostingEnvironment;
 
-        public AccountPeriodBalanceController(IAccountPeriodBalanceService accountPeriodBalanceService, IHostingEnvironment hostingEnvironment)
+        public AccountPeriodBalanceController(IAccountPeriodBalanceService accountPeriodBalanceService, IFileAccessor fileAccessor)
         {
             _accountPeriodBalanceService = accountPeriodBalanceService;
-            _hostingEnvironment = hostingEnvironment;
         }
 
         [HttpGet("{periodId}")]
@@ -30,36 +30,20 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<int> SaveUploadFile()
+        public async Task<string> SaveUploadFile()
         {
             try
             {
                 var file = Request.Form.Files[0];
-                string folderName = "Upload";
-                //string webRootPath = _hostingEnvironment.WebRootPath;
-                //string newPath = Path.Combine(webRootPath, folderName);
-                //if (!Directory.Exists(newPath))
-                //{
-                //    Directory.CreateDirectory(newPath);
-                //}
-                //if (file.Length > 0)
-                //{
-                //    string fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName.Trim('"');
-                //    string fullPath = Path.Combine(newPath, fileName);
-                //    using (var stream = new FileStream(fullPath, FileMode.Create))
-                //    {
-                //        file.CopyTo(stream);
-                //    }
-                //}
-                //return Json("Upload Successful.");
+                var periodId = Request.Form["PERIOD"][0];
+                var result = await _accountPeriodBalanceService.UploadAndImportFile(file, Int32.Parse(periodId));
+
+                return JsonConvert.SerializeObject(result);                
             }
             catch (Exception ex)
             {
-                //return Json("Upload Failed: " + ex.Message);
-            }
-
-            //  return await _accountPeriodBalanceService.SaveUploadFile();
-            return 1;
+                return ("Upload Failed: " + ex.Message);
+            }            
         }
     }
 }

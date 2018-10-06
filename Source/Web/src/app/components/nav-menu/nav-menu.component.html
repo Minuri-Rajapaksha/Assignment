@@ -14,17 +14,17 @@
             <ul class='nav navbar-nav'>
                 <li [routerLinkActive]='["link-active"]' [routerLinkActiveOptions]='{ exact: true }'>
                     <a [routerLink]='["/"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-home'></span> Upload File
+                        <span class='glyphicon glyphicon-upload'></span> Upload File
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/straightforward-view"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-education'></span> Straightforward View
+                        <span class='glyphicon glyphicon-th-list'></span> Straightforward View
                     </a>
                 </li>
                 <li [routerLinkActive]='["link-active"]'>
                     <a [routerLink]='["/report-view"]' (click)='collapse()'>
-                        <span class='glyphicon glyphicon-th-list'></span> Report View
+                        <span class='glyphicon glyphicon-dashboard'></span> Report View
                     </a>
                 </li>
             </ul>
