@@ -54,8 +54,7 @@ namespace Service.Application.BalanceFileUpload
                                     CreatedDate = DateTimeOffset.Now,
                                     PeriodId = message.PeriodId
                                 };
-                                uow.AccountPeriodBalances.Insert(accountBalance);
-                                responseMessage.Append("Balance Inserted: " + item.Key + System.Environment.NewLine);
+                                uow.AccountPeriodBalances.Insert(accountBalance);                                
                                 successCount++;
                             }
                             else
@@ -64,18 +63,17 @@ namespace Service.Application.BalanceFileUpload
                                 balanceRecord.CreatedDate = DateTimeOffset.Now;
                                 balanceRecord.CreatedBy = 1;
 
-                                uow.AccountPeriodBalances.Update(balanceRecord);
-                                responseMessage.Append("Balance Updated: " + item.Key + System.Environment.NewLine);
+                                uow.AccountPeriodBalances.Update(balanceRecord);                                
                                 successCount++;
                             }
                         }
                         else
                         {
                             responseMessage.Append(item.Key + " : Account does not exist !" + System.Environment.NewLine);
-                        }
-                        responseMessage.Insert(0, successCount.ToString() + " Records inserted succesfully!");
+                        }                        
                     }
                     await uow.SaveAsync();
+                    responseMessage.Insert(0, successCount.ToString() + " Records amended succesfully!" + System.Environment.NewLine);
                 }
             }
             else
@@ -89,7 +87,7 @@ namespace Service.Application.BalanceFileUpload
             {
                 Extension = ".txt",
                 FileName = message.FileName,
-                FileType = Shared.Enum.FileType.ResultDocument
+                FileType = Shared.Enum.FileType.ResultDocument                
             });
         }
 

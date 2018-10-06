@@ -23,7 +23,7 @@
     {
       // IFileAccessor
       "type": "Data.File.AzureFileAccessor, Data",
-      "services": [ { "type": "Data.File.Interfaces.IFileAccessor, Data" } ]
+      "services": [ { "type": "Data.Interfaces.File.IFileAccessor, Data" } ]
     },
     {
       // IBalanceFileImportProcess

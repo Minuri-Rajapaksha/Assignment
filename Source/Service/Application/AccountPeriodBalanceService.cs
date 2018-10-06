@@ -40,12 +40,12 @@ namespace Service.Application
 
         public async Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName)
         {            
-            var randomFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
+            var randomFileName = Guid.NewGuid().ToString();
             var fileUploadModel = new FileUploadModel
             {
                 FileName = randomFileName,
                 FileType = Shared.Enum.FileType.UploadDocument,
-                Extension = Path.GetExtension(randomFileName),
+                Extension = Path.GetExtension(fileName),
                 PeriodId = periodId
             };
 

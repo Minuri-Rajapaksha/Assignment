@@ -10,6 +10,11 @@ namespace Service.Application.BalanceFileUpload
     {
         private readonly IQueueAccessor<FileUploadModel> _queueAccessor;
 
+        public QueueImportProcess(IQueueAccessor<FileUploadModel> queueAccessor)
+        {
+            _queueAccessor = queueAccessor;
+        }
+
         public async Task ProcessFileAsync(FileUploadModel message)
         {
             await _queueAccessor.SendAsync(message);

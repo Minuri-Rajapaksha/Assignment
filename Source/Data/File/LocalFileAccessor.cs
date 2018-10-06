@@ -26,7 +26,7 @@ namespace Data.File
                 Directory.CreateDirectory(folderPath);
             }
 
-            string fullPath = Path.Combine(folderPath, fileUploadModel.FileName);
+            string fullPath = Path.Combine(folderPath, (fileUploadModel.FileName + fileUploadModel.Extension));
             stream.Position = 0;
             using (var fileStream = new FileStream(fullPath, FileMode.CreateNew))
             {
@@ -40,7 +40,7 @@ namespace Data.File
         public async Task<string[]> ReadFileAsync(FileUploadModel fileUploadModel)
         {
             var folderPath = Path.Combine(_configuration.GetValue<string>(AppSettings.FolderPath), fileUploadModel.FileType.ToString());
-            var fullPath = Path.Combine(folderPath, fileUploadModel.FileName);
+            var fullPath = Path.Combine(folderPath, (fileUploadModel.FileName + fileUploadModel.Extension));
 
             if (fileUploadModel.Extension == ".txt")
             {
