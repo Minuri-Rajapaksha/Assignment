@@ -2,18 +2,17 @@
 using Data.Interfaces.Queue;
 using Service.Interfaces.Application.BackgroundWorker;
 using Service.Interfaces.Application.BalanceFileUpload;
-using Shared.Queue;
-using System.Threading;
+using Shared.Model.ServerModel;
 using System.Threading.Tasks;
 
 namespace Service.Application.BackgroundWorker
 {
     public class BalanceFileUpload : IBalanceFileUpload
     {
-        private readonly IQueueAccessor<BalanceImportMessage> _queueAccessor;
+        private readonly IQueueAccessor<FileUploadModel> _queueAccessor;
         private readonly IBalanceFileImportProcess _balanceFileImportProcess;
 
-        public BalanceFileUpload(IQueueAccessor<BalanceImportMessage> queueAccessor, IBalanceFileImportProcess balanceFileImportProcess)
+        public BalanceFileUpload(IQueueAccessor<FileUploadModel> queueAccessor, IBalanceFileImportProcess balanceFileImportProcess)
         {
             _queueAccessor = queueAccessor;
             _balanceFileImportProcess = balanceFileImportProcess;

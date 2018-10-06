@@ -1,6 +1,6 @@
 ﻿
 using Service.Interfaces.Application.BalanceFileUpload;
-using Shared.Queue;
+using Shared.Model.ServerModel;
 using System.Threading.Tasks;
 
 namespace Service.Application.BalanceFileUpload
@@ -14,7 +14,7 @@ namespace Service.Application.BalanceFileUpload
             _balanceFileImportProcess = balanceFileImportProcess;
         }
 
-        public async Task ProcessFileAsync(BalanceImportMessage message)
+        public async Task ProcessFileAsync(FileUploadModel message)
         {
             await _balanceFileImportProcess.ProcessAsync(message);
         }

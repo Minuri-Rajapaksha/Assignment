@@ -3,9 +3,6 @@ using Microsoft.Extensions.Configuration;
 using OfficeOpenXml;
 using Shared.Constants;
 using Shared.Model.ServerModel;
-using Shared.Model.WebClientModel;
-using Shared.Queue;
-using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
@@ -21,7 +18,7 @@ namespace Data.File
             _configuration = configuration;
         }
 
-        public async Task<bool> UploadFileAsync(Stream stream, FileUploadModel fileUploadModel)
+        public async Task<bool> WriteFileAsync(Stream stream, FileUploadModel fileUploadModel)
         {
             var folderPath = Path.Combine(_configuration.GetValue<string>(AppSettings.FolderPath), fileUploadModel.FileType.ToString());
             if (!Directory.Exists(folderPath))

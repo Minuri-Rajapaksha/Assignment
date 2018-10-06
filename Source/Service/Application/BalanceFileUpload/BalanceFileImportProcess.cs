@@ -1,12 +1,9 @@
 ﻿using Data.Interfaces.DbFactory.Application;
 using Data.Interfaces.File;
 using Microsoft.Extensions.Configuration;
-using OfficeOpenXml;
 using Service.Interfaces.Application.BalanceFileUpload;
-using Shared.Constants;
 using Shared.Model.DB.Application;
 using Shared.Model.ServerModel;
-using Shared.Queue;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -29,7 +26,7 @@ namespace Service.Application.BalanceFileUpload
             _applicationDbFactory = applicationDbFactory;
         }
 
-        public async Task ProcessAsync(BalanceImportMessage message)
+        public async Task ProcessAsync(FileUploadModel message)
         {
             Dictionary<string, decimal> accountBalances = new Dictionary<string, decimal>();
             await ReadDataFromFile(message, accountBalances);
@@ -37,11 +34,13 @@ namespace Service.Application.BalanceFileUpload
 
             if (accountBalances != null)
             {
-                foreach (var item in accountBalances)
+                int successCount = 0;
+                using (var uow = await _applicationDbFactory.BeginUnitOfWorkAsync())
                 {
-                    using (var uow = await _applicationDbFactory.BeginUnitOfWorkAsync())
+                    var allAccount = uow.Accounts.GetAll();
+                    foreach (var item in accountBalances)
                     {
-                        var account = uow.Accounts.GetAll().FirstOrDefault(a => a.AccountName == item.Key);
+                        var account = allAccount.FirstOrDefault(a => a.AccountName == item.Key);
                         if (account != null)
                         {
                             var balanceRecord = uow.AccountPeriodBalances.GetAll().FirstOrDefault(b => b.PeriodId == message.PeriodId && b.AccountId == account.AccountId);
@@ -57,32 +56,47 @@ namespace Service.Application.BalanceFileUpload
                                 };
                                 uow.AccountPeriodBalances.Insert(accountBalance);
                                 responseMessage.Append("Balance Inserted: " + item.Key + System.Environment.NewLine);
+                                successCount++;
                             }
                             else
                             {
                                 balanceRecord.Balance = item.Value;
                                 balanceRecord.CreatedDate = DateTimeOffset.Now;
                                 balanceRecord.CreatedBy = 1;
+
+                                uow.AccountPeriodBalances.Update(balanceRecord);
                                 responseMessage.Append("Balance Updated: " + item.Key + System.Environment.NewLine);
+                                successCount++;
                             }
                         }
                         else
                         {
                             responseMessage.Append(item.Key + " : Account does not exist !" + System.Environment.NewLine);
                         }
-                        await uow.SaveAsync();
+                        responseMessage.Insert(0, successCount.ToString() + " Records inserted succesfully!");
                     }
+                    await uow.SaveAsync();
                 }
             }
             else
             {
                 responseMessage.Append("Data extraction error !" + System.Environment.NewLine);
             }
+
+            byte[] resutByteArray = Encoding.UTF8.GetBytes(responseMessage.ToString());
+            MemoryStream resultStream = new MemoryStream(resutByteArray);
+            await _fileAccessor.WriteFileAsync(resultStream, new FileUploadModel
+            {
+                Extension = ".txt",
+                FileName = message.FileName,
+                FileType = Shared.Enum.FileType.ResultDocument
+            });
         }
 
-        private async Task ReadDataFromFile(BalanceImportMessage message, Dictionary<string, decimal> accountBalances)
+        private async Task ReadDataFromFile(FileUploadModel message, Dictionary<string, decimal> accountBalances)
         {
-            var content = await _fileAccessor.ReadFileAsync(new FileUploadModel {
+            var content = await _fileAccessor.ReadFileAsync(new FileUploadModel
+            {
                 FileName = message.FileName,
                 Extension = message.Extension,
                 FileType = Shared.Enum.FileType.UploadDocument

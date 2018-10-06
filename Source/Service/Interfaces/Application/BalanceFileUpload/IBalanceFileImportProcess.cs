@@ -1,13 +1,10 @@
-﻿using Shared.Queue;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Shared.Model.ServerModel;
 using System.Threading.Tasks;
 
 namespace Service.Interfaces.Application.BalanceFileUpload
 {
     public interface IBalanceFileImportProcess
     {
-        Task ProcessAsync(BalanceImportMessage message);
+        Task ProcessAsync(FileUploadModel message);
     }
 }

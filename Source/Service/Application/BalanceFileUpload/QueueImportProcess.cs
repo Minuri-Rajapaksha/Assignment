@@ -1,16 +1,16 @@
 ﻿
 using Data.Interfaces.Queue;
 using Service.Interfaces.Application.BalanceFileUpload;
-using Shared.Queue;
+using Shared.Model.ServerModel;
 using System.Threading.Tasks;
 
 namespace Service.Application.BalanceFileUpload
 {
     public class QueueImportProcess : IImportProcess
     {
-        private readonly IQueueAccessor<BalanceImportMessage> _queueAccessor;
+        private readonly IQueueAccessor<FileUploadModel> _queueAccessor;
 
-        public async Task ProcessFileAsync(BalanceImportMessage message)
+        public async Task ProcessFileAsync(FileUploadModel message)
         {
             await _queueAccessor.SendAsync(message);
         }

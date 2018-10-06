@@ -23,7 +23,17 @@
     {
       // IFileAccessor
       "type": "Data.File.LocalFileAccessor, Data",
-      "services": [ { "type": "Data.File.Interfaces.IFileAccessor, Data" } ]
+      "services": [ { "type": "Data.Interfaces.File.IFileAccessor, Data" } ]
+    },
+    {
+      // IBalanceFileImportProcess
+      "type": "Service.Application.BalanceFileUpload.BalanceFileImportProcess, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IBalanceFileImportProcess, Service" } ]
+    },
+    {
+      // IImportProcess
+      "type": "Service.Application.BalanceFileUpload.LocalImportProcess, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IImportProcess, Service" } ]
     }
   ]
 }

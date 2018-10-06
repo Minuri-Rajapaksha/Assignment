@@ -1,18 +1,14 @@
-﻿using Data.Interfaces.File;
-using Data.Interfaces.DbFactory.Application;
-using OfficeOpenXml;
+﻿using Data.Interfaces.DbFactory.Application;
+using Data.Interfaces.File;
 using Service.Interfaces.Application;
-using Shared.Model.DB.Application;
+using Service.Interfaces.Application.BalanceFileUpload;
+using Shared.Model.ServerModel;
 using Shared.Model.WebClientModel;
 using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
-using Shared.Queue;
-using Service.Interfaces.Application.BalanceFileUpload;
-using Shared.Model.ServerModel;
 
 namespace Service.Application
 {
@@ -44,22 +40,20 @@ namespace Service.Application
 
         public async Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName)
         {            
-            var randomFileName = Path.Combine(Guid.NewGuid().ToString(), Path.GetExtension(fileName));
-
-            var fileUploadSuccess = await _fileAccessor.UploadFileAsync(stream, new FileUploadModel
+            var randomFileName = Guid.NewGuid().ToString() + Path.GetExtension(fileName);
+            var fileUploadModel = new FileUploadModel
             {
-                FileName = fileName,
-                FileType = Shared.Enum.FileType.UploadDocument
-            });
+                FileName = randomFileName,
+                FileType = Shared.Enum.FileType.UploadDocument,
+                Extension = Path.GetExtension(randomFileName),
+                PeriodId = periodId
+            };
+
+            var fileUploadSuccess = await _fileAccessor.WriteFileAsync(stream, fileUploadModel);
 
             if (fileUploadSuccess)
-            {                
-                await _importProcess.ProcessFileAsync(new BalanceImportMessage
-                {
-                    FileName = randomFileName,
-                    Extension = Path.GetExtension(fileName),
-                    PeriodId = periodId
-                });
+            {                                
+                await _importProcess.ProcessFileAsync(fileUploadModel);
             }
 
             return false;

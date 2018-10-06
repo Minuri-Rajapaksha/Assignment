@@ -9,5 +9,6 @@ namespace Shared.Model.ServerModel
         public string FileName { get; set; }
         public string Extension { get; set; }
         public Shared.Enum.FileType FileType { get; set; }
+        public int PeriodId { get; set; }
     }
 }
