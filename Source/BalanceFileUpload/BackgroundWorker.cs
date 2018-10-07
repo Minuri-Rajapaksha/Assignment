@@ -13,19 +13,21 @@ namespace BalanceFileUpload
         private readonly ILogService _logService;
         private readonly IBalanceFileUpload _balanceFileUpload;
 
-        public BackgroundWorker(ILogService logService, IBalanceFileUpload balanceFileUpload)
+        public BackgroundWorker()
         {
-            _logService = logService;
-            _balanceFileUpload = balanceFileUpload;
+            _logService = AutoFacConfig.Resolve<ILogService>();
+            _balanceFileUpload = AutoFacConfig.Resolve<IBalanceFileUpload>();
         }
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
             try
             {
+                await _balanceFileUpload.RunAsync();
+
                 while (!stoppingToken.IsCancellationRequested)
                 {
-                    await _balanceFileUpload.RunAsync();
+                    // service keep alive 
                 }
             }
             catch (Exception ex)

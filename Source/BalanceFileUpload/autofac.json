@@ -4,5 +4,31 @@
       // IApplicationDbFactory
       "type": "Data.DbFactory.Application.ApplicationDbFactory, Data",
       "services": [ { "type": "Data.Interfaces.DbFactory.Application.IApplicationDbFactory, Data" } ]
+    },
+    {
+      // ILogService
+      "type": "Service.Application.LogService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.ILogService, Service" } ]
+    },
+    {
+      // IBalanceFileUpload
+      "type": "Service.Application.BackgroundWorker.BalanceFileUpload, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BackgroundWorker.IBalanceFileUpload, Service" } ]
+    },
+    {
+      // IBalanceFileImportProcess
+      "type": "Service.Application.BalanceFileUpload.BalanceFileImportProcess, Service",
+      "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IBalanceFileImportProcess, Service" } ]
+    },
+    {
+      // IQueueAccessor<FileUploadModel>
+      "type": "Data.Queue.AzureQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data",
+      "services": [ { "type": "Data.Interfaces.Queue.IQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data" } ]
+    },
+    {
+      // IFileAccessor
+      "type": "Data.File.AzureFileAccessor, Data",
+      "services": [ { "type": "Data.Interfaces.File.IFileAccessor, Data" } ]
     }
+  ]
 }

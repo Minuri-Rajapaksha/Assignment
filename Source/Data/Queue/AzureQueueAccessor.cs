@@ -35,23 +35,23 @@ namespace Data.Queue
             };
 
             _client.RegisterMessageHandler(
-                async (message, token) =>
+            async (message, token) =>
+            {
+                try
                 {
-                    try
-                    {
-                        // Get message  
-                        var data = Encoding.UTF8.GetString(message.Body);
-                        T item = JsonConvert.DeserializeObject<T>(data);
+                    T msg = JsonConvert.DeserializeObject<T>(Encoding.UTF8.GetString(message.Body));
+                    await _client.CompleteAsync(message.SystemProperties.LockToken);
 
-                        // Process message  
-                        await onProcess(item);
-                        await _client.CompleteAsync(message.SystemProperties.LockToken);
-                    }
-                    catch (Exception)
-                    {
-                        await _client.DeadLetterAsync(message.SystemProperties.LockToken);
-                    }
-                }, options);
+                    await onProcess(msg);
+                }
+                catch (Exception ex)
+                {
+                    await _client.DeadLetterAsync(message.SystemProperties.LockToken);
+                }
+
+            }, options);
+
+            await Task.CompletedTask;
         }
     }
 }
