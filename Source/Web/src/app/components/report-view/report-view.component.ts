@@ -26,50 +26,6 @@ export class ReportViewComponent implements OnInit {
     this.getAllAccounts();
   }
 
-  dailyForecast(temp_max, temp_min) {
-
-    const alldates = [11111, 222222, 33333];
-    const weatherDates = [];
-
-    alldates.forEach((res) => {
-        const jsdate = new Date(res * 1000);
-        weatherDates.push(jsdate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }));
-    });
-
-    this.chart = new Chart('canvas', {
-      type: 'line',
-      data: {
-        labels: ['ssss', 'yyyy', 'gggg'],
-        datasets: [
-          {
-            data: temp_min,
-            borderColor: '#3cba9f',
-            fill: false
-          },
-          {
-            data: temp_max,
-            borderColor: '#ffcc00',
-            fill: false
-          },
-        ]
-      },
-      options: {
-        legend: {
-          display: true
-        },
-        scales: {
-          xAxes: [{
-            display: true
-          }],
-          yAxes: [{
-            display: true
-          }],
-        }
-      }
-    });
-
-  }
-
   getAllPeriods() {
     this._apiService.get(API.period.getDropdownList)
       .subscribe(res => {
@@ -91,9 +47,6 @@ export class ReportViewComponent implements OnInit {
   }
 
   loadReport() {
-
-    this.dailyForecast([25.45, 25, 25], [66, 66, 66]);
-
     const startPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.startPeriodId, 10)).periodDate;
     const endPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.endPeriodId, 10)).periodDate;
     if (startPeriodDate > endPeriodDate) {
@@ -111,9 +64,41 @@ export class ReportViewComponent implements OnInit {
         });
   }
 
-  bindData(res: Array<any>) {
-    console.log(res);
-    console.log(JSON.stringify(res));
+  bindData(response: any) {
+
+    this.chart = new Chart('canvas', {
+      type: 'line',
+      data: {
+        labels: ['January', 'February', 'March', 'April'],
+        datasets: [
+          {
+            data: [10, 25, 80],
+            label: 'Something3',
+            borderColor: '#3cba9f',
+            fill: false
+          },
+          {
+            data: [50, 88, 11],
+            label: 'Something66',
+            borderColor: '#ffcc00',
+            fill: false
+          },
+        ]
+      },
+      options: {
+        legend: {
+          display: true
+        },
+        scales: {
+          xAxes: [{
+            display: true
+          }],
+          yAxes: [{
+            display: true
+          }],
+        }
+      }
+    });
   }
 
 }
