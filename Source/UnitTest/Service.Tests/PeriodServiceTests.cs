@@ -37,6 +37,7 @@ namespace Service.Tests
             using (var uow = _applicationDbFactory.BeginUnitOfWorkAsync().Result)
             {
                 await SeedPeriods(uow);
+
                 // Act
                 var actualResult = await _periodService.GetPeriodDropdownListAsync();
 
