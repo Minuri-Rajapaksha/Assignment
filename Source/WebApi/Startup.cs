@@ -55,6 +55,8 @@ namespace WebApi
 
             services.AddSingleton<IClaimsTransformation, ClaimsTransformer>();
 
+            services.AddMemoryCache();
+
             services.AddMvc(config =>
             {
                 config.Filters.Add(new AuthorizeFilter(

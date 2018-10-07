@@ -1,6 +1,7 @@
 ﻿using IdentityModel;
 using IdentityModel.Client;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.Extensions.Caching.Memory;
 using Microsoft.Extensions.Configuration;
 using Shared.Constants;
 using System;
@@ -14,10 +15,12 @@ namespace WebApi.Security
     public class ClaimsTransformer : IClaimsTransformation
     {
         private readonly IConfiguration _configuration;
+        private readonly IMemoryCache _memoryCache;
 
-        public ClaimsTransformer(IConfiguration configuration)
+        public ClaimsTransformer(IConfiguration configuration, IMemoryCache memoryCache)
         {
             _configuration = configuration;
+            _memoryCache = memoryCache;
         }
 
         public async Task<ClaimsPrincipal> TransformAsync(ClaimsPrincipal principal)
@@ -31,7 +34,12 @@ namespace WebApi.Security
             }
 
             // Cache this result
-            var claimsPrincipalLite = await BuildMatcherClaimsPrincipal(access_token, principal);
+            if (_memoryCache.Get<ClaimsPrincipal>("profileCache") == null)
+            {
+                _memoryCache.Set("profileCache", await BuildClaimsPrincipal(access_token, principal), TimeSpan.FromMinutes(30));
+            }
+            var claimsPrincipalLite = _memoryCache.Get<ClaimsPrincipal>("profileCache");
+
 
             var claims = claimsPrincipalLite.Claims.Select(x => new Claim(x.Type, x.Value));
             var id = new ClaimsIdentity(claims, principal.Identity.AuthenticationType, JwtClaimTypes.Name, JwtClaimTypes.Role);
@@ -43,7 +51,7 @@ namespace WebApi.Security
             return claimsPrincipal;
         }
 
-        private async Task<ClaimsPrincipal> BuildMatcherClaimsPrincipal(string accessToken, ClaimsPrincipal principal)
+        private async Task<ClaimsPrincipal> BuildClaimsPrincipal(string accessToken, ClaimsPrincipal principal)
         {
             var discoveryClient = new DiscoveryClient(_configuration.GetValue<string>(AppSettings.IdentityServerHost));
             var doc = await discoveryClient.GetAsync();
