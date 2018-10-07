@@ -1,16 +1,10 @@
-﻿using Data.Interfaces.DbFactory;
-using Data.Interfaces.DbFactory.Application;
-using Data.Interfaces.UnitOfWork;
+﻿using Data.Interfaces.DbFactory.Application;
 using Data.Interfaces.UnitOfWork.Application;
-using Microsoft.Extensions.Configuration;
-using Shared.Constants;
-using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Text;
-using System.Threading.Tasks;
-using Microsoft.EntityFrameworkCore;
 using Data.UnitOfWork.Application;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using System.Data.SqlClient;
+using System.Threading.Tasks;
 
 namespace Data.DbFactory.Application
 {
@@ -23,7 +17,7 @@ namespace Data.DbFactory.Application
             _configuration = configuration;
         }
 
-        public ApplicationContext CreateDbContext()
+        public virtual ApplicationContext CreateDbContext()
             => new ApplicationContext(new SqlConnection(this._configuration.GetConnectionString("ApplicationConnection")));
 
         public async Task EnsureMigrationAsync()
