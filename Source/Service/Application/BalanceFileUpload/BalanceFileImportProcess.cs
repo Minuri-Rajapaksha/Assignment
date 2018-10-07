@@ -50,7 +50,7 @@ namespace Service.Application.BalanceFileUpload
                                 {
                                     AccountId = account.AccountId,
                                     Balance = item.Value,
-                                    CreatedBy = 1,
+                                    CreatedBy = message.UserId,
                                     CreatedDate = DateTimeOffset.Now,
                                     PeriodId = message.PeriodId
                                 };
@@ -61,7 +61,7 @@ namespace Service.Application.BalanceFileUpload
                             {
                                 balanceRecord.Balance = item.Value;
                                 balanceRecord.CreatedDate = DateTimeOffset.Now;
-                                balanceRecord.CreatedBy = 1;
+                                balanceRecord.CreatedBy = message.UserId;
 
                                 uow.AccountPeriodBalances.Update(balanceRecord);                                
                                 successCount++;

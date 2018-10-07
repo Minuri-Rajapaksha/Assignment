@@ -39,7 +39,7 @@ namespace Service.Application
             }
         }
 
-        public async Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName)
+        public async Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName, int userId)
         {
             var randomFileName = Guid.NewGuid().ToString();
             var fileUploadModel = new FileUploadModel
@@ -47,7 +47,8 @@ namespace Service.Application
                 FileName = randomFileName,
                 FileType = Shared.Enum.FileType.UploadDocument,
                 Extension = Path.GetExtension(fileName),
-                PeriodId = periodId
+                PeriodId = periodId,
+                UserId = userId
             };
 
             var fileUploadSuccess = await _fileAccessor.WriteFileAsync(stream, fileUploadModel);
