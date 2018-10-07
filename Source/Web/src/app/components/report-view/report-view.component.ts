@@ -22,16 +22,15 @@ export class ReportViewComponent implements OnInit {
   constructor(private _apiService: ApiService) { }
 
   ngOnInit() {
-    this.dailyForecast([45.45, 98, 4], [85, 101, 25]);
+    this.getAllPeriods();
+    this.getAllAccounts();
   }
 
   dailyForecast(temp_max, temp_min) {
 
-    // tslint:disable-next-line:no-shadowed-variable
     const alldates = [11111, 222222, 33333];
-
     const weatherDates = [];
-    // tslint:disable-next-line:no-shadowed-variable
+
     alldates.forEach((res) => {
         const jsdate = new Date(res * 1000);
         weatherDates.push(jsdate.toLocaleTimeString('en', { year: 'numeric', month: 'short', day: 'numeric' }));
