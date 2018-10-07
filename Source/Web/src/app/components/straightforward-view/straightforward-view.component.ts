@@ -26,7 +26,7 @@ export class StraightforwardViewComponent implements OnInit {
       this.periodList = res;
     },
       err => {
-        console.error(`Error occured retrieving resource canlendar ${err}`);
+        console.error(`Error occured retrieving periods ${err}`);
       });
   }
 
@@ -36,7 +36,7 @@ export class StraightforwardViewComponent implements OnInit {
         this.accountPeriodBalance = res;
       },
         err => {
-          console.error(`Error occured retrieving resource canlendar ${err}`);
+          console.error(`Error occured retrieving account balance ${err}`);
         });
   }
 }

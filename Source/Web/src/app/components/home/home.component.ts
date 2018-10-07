@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http'
+import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Uploader } from '../../../entities/uploader';
 import { ApiService } from '../../../services/api-service';
 import { Period } from '../../../entities/period';
@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     uploader: Uploader;
     periodList: Period[];
     selectedPeriod: number;
-    uploadOk: string = "";
+    uploadOk: string = '';
 
     constructor(private http: HttpClient, private _apiService: ApiService) { }
 
@@ -38,11 +38,11 @@ export class HomeComponent implements OnInit {
     }
 
     onSelectChange(event: EventTarget) {
-        let eventObj: MSInputMethodContext = <MSInputMethodContext>event;
-        let target: HTMLInputElement = <HTMLInputElement>eventObj.target;
-        let files: FileList = target.files;
-        let file = files[0];
-        let extension = file.name.substring(file.name.lastIndexOf(".") + 1);
+        const eventObj: MSInputMethodContext = <MSInputMethodContext>event;
+        const target: HTMLInputElement = <HTMLInputElement>eventObj.target;
+        const files: FileList = target.files;
+        const file = files[0];
+        const extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
         if (file.size / 1024 / 1024 > 2) {
             alert('1MB exceeds');

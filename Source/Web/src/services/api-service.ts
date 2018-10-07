@@ -67,17 +67,17 @@ export class ApiService {
     }
 
     public upload(url: string, file: File): Observable<HttpEvent<any>> {
-        let formData = new FormData();
+        const formData = new FormData();
         formData.append('upload', file);
         let params = new HttpParams();
         const options = {
-          params: params,
-          reportProgress: true,
-          headers: this.authService.getAuthorizationHeaderValue()
+            params: params,
+            reportProgress: true,
+            headers: this.authService.getAuthorizationHeaderValue()
         };
         const req = new HttpRequest('POST', url, formData, options);
         return this.http.request(req);
-      }
+    }
 
     delete(url: string, id: string): Observable<any> {
         return this.http.delete(this._baseUrl + url + '/' + id, this.authService.getAuthorizationHeaderValue())

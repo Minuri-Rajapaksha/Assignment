@@ -1,3 +1,44 @@
 <p>
   report-view works!
 </p>
+
+<p *ngIf="!periodList"><em>Loading...</em></p>
+From
+<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
+  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+</select>
+To
+<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
+  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+</select>
+Account
+<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
+    <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+  </select>
+  
+<div class="row">
+    <div class="col-md-12">
+      <div style="display: block;">
+      <canvas baseChart width="400" height="400"
+                  [datasets]="lineChartData"
+                  [labels]="lineChartLabels"
+                  [options]="lineChartOptions"
+                  [colors]="lineChartColors"
+                  [legend]="lineChartLegend"
+                  [chartType]="lineChartType"
+                  (chartHover)="chartHovered($event)"
+                  (chartClick)="chartClicked($event)"></canvas>
+      </div>
+    </div>
+    <!-- <div class="col-md-6" style="margin-bottom: 10px">
+      <table class="table table-responsive table-condensed">
+        <tr>
+          <th *ngFor="let label of lineChartLabels">{{label}}</th>
+        </tr>
+        <tr *ngFor="let d of lineChartData">
+          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
+        </tr>
+      </table>
+      
+    </div> -->
+  </div>

@@ -39,6 +39,11 @@
       // IQueueAccessor<FileUploadModel>
       "type": "Data.Queue.AzureQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data",
       "services": [ { "type": "Data.Interfaces.Queue.IQueueAccessor`1[[Shared.Model.ServerModel.FileUploadModel, Shared]], Data" } ]
+    },
+    {
+      // IAccountService
+      "type": "Service.Application.AccountService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.IAccountService, Service" } ]
     }
   ]
 }

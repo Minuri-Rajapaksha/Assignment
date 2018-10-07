@@ -34,6 +34,11 @@
       // IImportProcess
       "type": "Service.Application.BalanceFileUpload.LocalImportProcess, Service",
       "services": [ { "type": "Service.Interfaces.Application.BalanceFileUpload.IImportProcess, Service" } ]
+    },
+    {
+      // IAccountService
+      "type": "Service.Application.AccountService, Service",
+      "services": [ { "type": "Service.Interfaces.Application.IAccountService, Service" } ]
     }
   ]
 }

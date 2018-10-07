@@ -6,5 +6,8 @@
     "period":{
       "getDropdownList" : "period/dropdownlist"
     },
+    "account":{
+      "getDropdownList" : "account/dropdownlist"
+    },
     "fileupload" : "accountperiodbalance/"
 }

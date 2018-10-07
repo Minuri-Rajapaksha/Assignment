@@ -24,6 +24,9 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 // file upload
 import { FileSelectDirective } from 'ng2-file-upload';
 
+// chart
+import { ChartsModule } from 'ng2-charts';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -47,7 +50,8 @@ import { FileSelectDirective } from 'ng2-file-upload';
         useFactory: HttpLoaderFactory,
         deps: [HttpClient]
       }
-    })
+    }),
+    ChartsModule
   ],
   providers: [AuthGuardService, AuthService, ApiService],
   bootstrap: [AppComponent]
