@@ -39,6 +39,10 @@ export class AuthService {
     return this.user != null && !this.user.expired;
   }
 
+  isAdmin(): boolean {
+    return this.user != null && !this.user.expired && this.user.profile.Role === '1';
+  }
+
   getClaims(): any {
     return this.user.profile;
   }

@@ -34,11 +34,11 @@ namespace WebApi.Security
             }
 
             // Cache this result
-            if (_memoryCache.Get<ClaimsPrincipal>("profileCache") == null)
+            if (_memoryCache.Get<ClaimsPrincipal>(access_token) == null)
             {
-                _memoryCache.Set("profileCache", await BuildClaimsPrincipal(access_token, principal), TimeSpan.FromMinutes(30));
+                _memoryCache.Set(access_token, await BuildClaimsPrincipal(access_token, principal), TimeSpan.FromMinutes(30));
             }
-            var claimsPrincipalLite = _memoryCache.Get<ClaimsPrincipal>("profileCache");
+            var claimsPrincipalLite = _memoryCache.Get<ClaimsPrincipal>(access_token);
 
 
             var claims = claimsPrincipalLite.Claims.Select(x => new Claim(x.Type, x.Value));

@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
+using WebApi.Filter;
 
 namespace WebApi.Controllers
 {
@@ -28,6 +29,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{accountid}/{startperiodid}/{endperiodid}")]
+        [AdminFilter]
         public async Task<AccountPeriodBalanceReportModel> GetAccountBalanceForPeriodRangeAsync(int accountid, int startperiodid, int endperiodid)
         {                        
             return await _accountPeriodBalanceService.GetAccountBalanceForPeriodRangeAsync(new AccountBalancePeriodRangeModel
@@ -39,6 +41,7 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
+        [AdminFilter]
         public async Task<bool> SaveUploadFile()
         {
             try

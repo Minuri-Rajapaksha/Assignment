@@ -8,9 +8,9 @@ import { ReportViewComponent } from './components/report-view/report-view.compon
 import { StraightforwardViewComponent } from './components/straightforward-view/straightforward-view.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
+  { path: 'upload-balance', component: HomeComponent, canActivate: [AuthGuardService] },
   { path: 'signin-oidc', component: SigninOidcComponent },
-  { path: 'straightforward-view', component: StraightforwardViewComponent, canActivate: [AuthGuardService] },
+  { path: '', component: StraightforwardViewComponent, pathMatch: 'full', canActivate: [AuthGuardService] },
   { path: 'report-view', component: ReportViewComponent, canActivate: [AuthGuardService] },
 ];
 
