@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     uploader: Uploader;
     periodList: Period[];
     selectedPeriod: number;
-    uploadOk: string = '';
+    uploadOk = '';
 
     constructor(private http: HttpClient, private _apiService: ApiService) { }
 
@@ -51,23 +51,23 @@ export class HomeComponent implements OnInit {
             if (file) {
                 this.uploader = new Uploader(file);
             }
-        }
-        else {
+        } else {
             alert('invalid extension');
         }
     }
 
-    // upload   
+    // upload
     upload() {
         this.uploadOk = undefined;
-        if (this.uploader.id == null)
+        if (this.uploader.id == null) {
             return;
+        }
         if (this.selectedPeriod === undefined) {
-            alert("Please select period");
+            alert('Please select period');
             return;
         }
 
-        let selectedFile = this.uploader;
+        const selectedFile = this.uploader;
         if (selectedFile) {
             const formData = new FormData();
             formData.append(selectedFile.file.name, selectedFile.file);
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
             // this._apiService.uploadFile('accountperiodbalance', formData)
             this._apiService.post(API.fileupload, formData)
                 .subscribe(res => {
-                    this.uploadOk = "ok";
+                    this.uploadOk = 'ok';
                     alert(res);
                     this.uploader = undefined;
                     if (res.type === HttpEventType.UploadProgress) {
@@ -86,7 +86,7 @@ export class HomeComponent implements OnInit {
                 },
                     err => {
                         console.error(`Error occured retrieving resource canlendar ${err}`);
-                    });                   
+                    });
             // this._apiService.upload('accountperiodbalance', this.uploader.file)
             // .subscribe(
             //   event => {
@@ -110,7 +110,7 @@ export class HomeComponent implements OnInit {
         }
     }
 
-    // cancel all   
+    // cancel all
     cancelAll() {
         this.uploader = undefined;
     }

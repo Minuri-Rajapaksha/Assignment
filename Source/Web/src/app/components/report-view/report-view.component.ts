@@ -41,6 +41,7 @@ export class ReportViewComponent implements OnInit {
   }
 
   // lineChart
+  // tslint:disable-next-line:member-ordering
   public lineChartData: Array<any> = [
     { data: [65, 59, 80, 81, 56, 55, 40], label: 'R&D' },
     { data: [28, 48, 40, 19, 86, 27, 90], label: 'Canteen' },
@@ -48,10 +49,13 @@ export class ReportViewComponent implements OnInit {
     { data: [23, 43, 42, 21, 75, 40, 50], label: 'Marketing' },
     { data: [56, 87, 67, 54, 160, 87, 60], label: 'Parking fines' },
   ];
+  // tslint:disable-next-line:member-ordering
   public lineChartLabels: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
+  // tslint:disable-next-line:member-ordering
   public lineChartOptions: any = {
     responsive: true
   };
+  // tslint:disable-next-line:member-ordering
   public lineChartColors: Array<any> = [
     { // grey
       backgroundColor: 'rgba(148,159,177,0.2)',
@@ -94,8 +98,10 @@ export class ReportViewComponent implements OnInit {
       pointHoverBorderColor: 'rgba(145,160,167,0.8)'
     }
   ];
-  public lineChartLegend: boolean = true;
-  public lineChartType: string = 'line';
+  // tslint:disable-next-line:member-ordering
+  public lineChartLegend = true;
+  // tslint:disable-next-line:member-ordering
+  public lineChartType = 'line';
 
   // public randomize():void {
   //   let _lineChartData:Array<any> = new Array(this.lineChartData.length);

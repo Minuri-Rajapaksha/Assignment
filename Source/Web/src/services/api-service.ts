@@ -69,7 +69,7 @@ export class ApiService {
     public upload(url: string, file: File): Observable<HttpEvent<any>> {
         const formData = new FormData();
         formData.append('upload', file);
-        let params = new HttpParams();
+        const params = new HttpParams();
         const options = {
             params: params,
             reportProgress: true,

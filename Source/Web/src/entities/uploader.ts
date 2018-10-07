@@ -8,4 +8,4 @@ export class Uploader {
     this.file = file;
     this.id = Guid.newGuid();
   }
-}  
+}
