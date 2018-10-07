@@ -19,7 +19,7 @@ export class ApiService {
         if (window.location.hostname === 'localhost') {
             this._baseUrl = `https://localhost:44310/api/`;
         } else {
-            this._baseUrl = `https://webapiminuri.scm.azurewebsites.net/api/`;
+            this._baseUrl = `https://webapiminuri.azurewebsites.net/api/`;
         }
     }
 
@@ -44,13 +44,6 @@ export class ApiService {
     }
 
     get(url: string): Observable<any> {
-        const uri = this._baseUrl + url;
-        return this.http
-            .get(uri, this.authService.getAuthorizationHeaderValue())
-            .pipe(map(this.extractData), catchError(this.handleError));
-    }
-
-    getCustom(url: string): Observable<any> {
         const uri = this._baseUrl + url;
         return this.http
             .get(uri, this.authService.getAuthorizationHeaderValue())

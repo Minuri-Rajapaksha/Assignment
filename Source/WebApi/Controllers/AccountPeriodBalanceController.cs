@@ -19,17 +19,21 @@ namespace WebApi.Controllers
             _accountPeriodBalanceService = accountPeriodBalanceService;
         }
 
-        [HttpGet("{periodId}")]
-        public async Task<List<AccountPeriodBalanceModel>> GetAccountBalanceForPeriodAsync(int periodId)
+        [HttpGet("{periodid}")]
+        public async Task<List<AccountPeriodBalanceModel>> GetAccountBalanceForPeriodAsync(int periodid)
         {
-            return await _accountPeriodBalanceService.GetAccountBalanceForPeriodAsync(periodId);
+            return await _accountPeriodBalanceService.GetAccountBalanceForPeriodAsync(periodid);
         }
 
-        [HttpGet("{periodDetail}")]
-        public async Task<List<AccountPeriodBalanceModel>> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accountPeriodBalanceRange)
+        [HttpGet("{accountid}/{startperiodid}/{endperiodid}")]
+        public async Task<List<AccountPeriodBalanceReportModel>> GetAccountBalanceForPeriodRangeAsync(int accountid, int startperiodid, int endperiodid)
         {
-            //return await _accountPeriodBalanceService.GetAccountBalanceForPeriodRangeAsync(accountPeriodBalanceRange);
-            return null;
+            return await _accountPeriodBalanceService.GetAccountBalanceForPeriodRangeAsync(new AccountBalancePeriodRangeModel
+            {
+                AccountId = accountid,
+                StartPeriodId = startperiodid,
+                EndPeriodId = endperiodid
+            });
         }
 
         [HttpPost]

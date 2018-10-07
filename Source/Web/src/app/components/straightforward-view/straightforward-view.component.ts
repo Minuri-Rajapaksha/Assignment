@@ -31,7 +31,7 @@ export class StraightforwardViewComponent implements OnInit {
   }
 
   getAccountBalanceForPeriod(periodId: number) {
-    this._apiService.getCustom(API.accountPeriodBalance.getAccountBalanceForPeriod + `${periodId}`)
+    this._apiService.get(API.accountPeriodBalance.getAccountBalanceForPeriod + `${periodId}`)
       .subscribe(res => {
         this.accountPeriodBalance = res;
       },

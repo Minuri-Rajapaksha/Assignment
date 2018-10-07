@@ -5,7 +5,8 @@ using System.Text;
 namespace Shared.Model.WebClientModel
 {
     public class AccountPeriodBalanceReportModel
-    {
-        public List<AccountPeriodBalanceModel> AccountPeriodBalanceReport { get; set; }
+    {        
+        public List<decimal> Data { get; set; }
+        public string Label { get; set; }
     }
 }

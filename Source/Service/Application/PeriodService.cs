@@ -24,7 +24,8 @@ namespace Service.Application
                 return uow.Periods.GetAll().Select(p => new PeriodModel
                 {
                     PeriodId = p.PeriodId,
-                    Discription = p.PeriodDate.Year + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(p.PeriodDate.Month)
+                    Discription = p.PeriodDate.Year + " - " + CultureInfo.CurrentCulture.DateTimeFormat.GetMonthName(p.PeriodDate.Month),
+                    PeriodDate = p.PeriodDate
             }).ToList();
             }
         }

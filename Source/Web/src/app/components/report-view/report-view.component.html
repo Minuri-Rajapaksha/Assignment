@@ -3,39 +3,47 @@
 </p>
 
 <p *ngIf="!periodList"><em>Loading...</em></p>
-From
-<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
-  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
-</select>
-To
-<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
-  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
-</select>
-<br>
-Account
-<select *ngIf="accountList" id='soflow'>
-  <option *ngFor="let account of accountList" value="{{account.accountId}}">{{account.accountName}}</option>
-</select>
-
-<button (click)="loadReport()"></button>
-
 <div class="row">
-  <div class="col-md-6">
-    <div style="display: block;">
-      <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
-        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
-        (chartClick)="chartClicked($event)"></canvas>
+  <div class="align-to-left">
+    <div>
+      From
+    </div>
+    <div>
+      <select *ngIf="periodList" class="dropdownstyle" id='soflow' [(ngModel)]="startPeriodId">
+        <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+      </select>
     </div>
   </div>
-  <!-- <div class="col-md-6" style="margin-bottom: 10px">
-      <table class="table table-responsive table-condensed">
-        <tr>
-          <th *ngFor="let label of lineChartLabels">{{label}}</th>
-        </tr>
-        <tr *ngFor="let d of lineChartData">
-          <td *ngFor="let label of lineChartLabels; let j=index">{{d && d.data[j]}}</td>
-        </tr>
-      </table>
-      
-    </div> -->
+  <div class="align-to-left">
+    <div class="padding-left">
+      To
+    </div>
+    <div>
+      <select *ngIf="periodList" class="dropdownstyle" id='soflow' [(ngModel)]="endPeriodId">
+        <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="align-to-left">
+    <div class="padding-left">
+      Account
+    </div>
+    <div>
+      <select *ngIf="accountList" class="dropdownstyle" id='soflow' [(ngModel)]="accountId">
+        <option value="0">All</option>
+        <option *ngFor="let account of accountList" value="{{account.accountId}}">{{account.accountName}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="align-to-left">
+    <div class="padding-left"></div>
+    <div class="button-align">
+      <button (click)="loadReport()">Load Report</button>
+    </div>
+  </div>
+</div>
+
+<br />
+<div class="row">
+
 </div>
