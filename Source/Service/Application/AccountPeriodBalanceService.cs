@@ -39,7 +39,7 @@ namespace Service.Application
         }
 
         public async Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName)
-        {            
+        {
             var randomFileName = Guid.NewGuid().ToString();
             var fileUploadModel = new FileUploadModel
             {
@@ -52,11 +52,39 @@ namespace Service.Application
             var fileUploadSuccess = await _fileAccessor.WriteFileAsync(stream, fileUploadModel);
 
             if (fileUploadSuccess)
-            {                                
+            {
                 await _importProcess.ProcessFileAsync(fileUploadModel);
             }
 
             return false;
+        }
+
+        public async Task<List<AccountPeriodBalanceReportModel>> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accountPeriodBalanceRange)
+        {
+            using (var uow = await _applicationDbFactory.BeginUnitOfWorkAsync())
+            {
+                var resultList = new List<AccountPeriodBalanceReportModel>();
+                var startModel = uow.Periods.GetAll().FirstOrDefault(s => s.PeriodId == accountPeriodBalanceRange.StartPeriodId);
+                var endModel = uow.Periods.GetAll().FirstOrDefault(s => s.PeriodId == accountPeriodBalanceRange.EndPeriodId);
+                var allMonthsForPeriodRange = uow.Periods.GetAll().Where(p => p.PeriodDate >= startModel.PeriodDate && p.PeriodDate <= endModel.PeriodDate);
+
+                foreach (var item in allMonthsForPeriodRange)
+                {
+                    var model = uow.AccountPeriodBalances.GetAll().Where(a => a.PeriodId == item.PeriodId)
+                        .Select(p => new AccountPeriodBalanceModel
+                        {
+                            AccountName = p.Account.AccountName,
+                            Balance = p.Balance
+                        }).ToList();
+
+                    resultList.Add(new AccountPeriodBalanceReportModel
+                    {
+                        AccountPeriodBalanceReport = model
+                    });
+                }
+
+                return resultList;
+            }
         }
     }
 }

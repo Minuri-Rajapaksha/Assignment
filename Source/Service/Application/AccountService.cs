@@ -1,4 +1,5 @@
 ﻿using Data.Interfaces.DbFactory.Application;
+using Service.Interfaces.Application;
 using Shared.Model.WebClientModel;
 using System;
 using System.Collections.Generic;
@@ -8,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Service.Application
 {
-    public class AccountService
+    public class AccountService : IAccountService
     {
         private readonly IApplicationDbFactory _applicationDbFactory;
 
@@ -24,7 +25,7 @@ namespace Service.Application
                 return uow.Accounts.GetAll().Select(p => new AccountModel
                 {
                     AccountId = p.AccountId,
-                    Discription = p.AccountName
+                    AccountName = p.AccountName
                 }).ToList();
             }
         }

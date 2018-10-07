@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Period } from '../../../entities/period';
 import { ApiService } from '../../../services/api-service';
 import API from '../../../services/api-config.json';
+import { Account } from '../../../entities/account';
+import { PeriodRangeDetail } from '../../../entities/period-range-detail';
 
 @Component({
   selector: 'app-report-view',
@@ -12,6 +14,7 @@ export class ReportViewComponent implements OnInit {
 
   periodList: Period[];
   accountList: Account[];
+  periodRangeDetail:PeriodRangeDetail;
 
   constructor(private _apiService: ApiService) { }
 
@@ -37,6 +40,20 @@ export class ReportViewComponent implements OnInit {
       },
         err => {
           console.error(`Error occured retrieving periods ${err}`);
+        });
+  }
+
+  loadReport(){
+    this.periodRangeDetail.accountId = 1;
+    this.periodRangeDetail.startPeriodId = 1;
+    this.periodRangeDetail.endPeriodId = 2;
+
+    this._apiService.getCustom(API.accountPeriodBalance.getAccountBalanceForPeriod + `${this.periodRangeDetail}`)
+      .subscribe(res => {
+        //this.accountPeriodBalance = res;
+      },
+        err => {
+          console.error(`Error occured retrieving account balance report ${err}`);
         });
   }
 

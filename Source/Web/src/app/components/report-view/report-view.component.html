@@ -11,26 +11,23 @@ To
 <select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
   <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
 </select>
+<br>
 Account
-<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
-    <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
-  </select>
-  
+<select *ngIf="accountList" id='soflow'>
+  <option *ngFor="let account of accountList" value="{{account.accountId}}">{{account.accountName}}</option>
+</select>
+
+<button (click)="loadReport()"></button>
+
 <div class="row">
-    <div class="col-md-12">
-      <div style="display: block;">
-      <canvas baseChart width="400" height="400"
-                  [datasets]="lineChartData"
-                  [labels]="lineChartLabels"
-                  [options]="lineChartOptions"
-                  [colors]="lineChartColors"
-                  [legend]="lineChartLegend"
-                  [chartType]="lineChartType"
-                  (chartHover)="chartHovered($event)"
-                  (chartClick)="chartClicked($event)"></canvas>
-      </div>
+  <div class="col-md-6">
+    <div style="display: block;">
+      <canvas baseChart width="400" height="400" [datasets]="lineChartData" [labels]="lineChartLabels" [options]="lineChartOptions"
+        [colors]="lineChartColors" [legend]="lineChartLegend" [chartType]="lineChartType" (chartHover)="chartHovered($event)"
+        (chartClick)="chartClicked($event)"></canvas>
     </div>
-    <!-- <div class="col-md-6" style="margin-bottom: 10px">
+  </div>
+  <!-- <div class="col-md-6" style="margin-bottom: 10px">
       <table class="table table-responsive table-condensed">
         <tr>
           <th *ngFor="let label of lineChartLabels">{{label}}</th>
@@ -41,4 +38,4 @@ Account
       </table>
       
     </div> -->
-  </div>
+</div>

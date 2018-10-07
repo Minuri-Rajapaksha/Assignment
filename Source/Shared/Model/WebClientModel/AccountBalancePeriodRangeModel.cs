@@ -4,9 +4,10 @@ using System.Text;
 
 namespace Shared.Model.WebClientModel
 {
-    public class AccountModel
+    public class AccountBalancePeriodRangeModel
     {
+        public int StartPeriodId { get; set; }
+        public int EndPeriodId { get; set; }
         public int AccountId { get; set; }
-        public string AccountName { get; set; }
     }
 }
