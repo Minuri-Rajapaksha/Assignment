@@ -11,6 +11,6 @@ namespace Service.Interfaces.Application
 
         Task<bool> UploadAndImportFile(int periodId, Stream stream, string fileName);
 
-        Task<List<AccountPeriodBalanceReportModel>> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accountPeriodBalanceRange);
+        Task<AccountPeriodBalanceReportModel> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accountPeriodBalanceRange);
     }
 }

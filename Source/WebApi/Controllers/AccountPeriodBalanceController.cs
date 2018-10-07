@@ -26,7 +26,7 @@ namespace WebApi.Controllers
         }
 
         [HttpGet("{accountid}/{startperiodid}/{endperiodid}")]
-        public async Task<List<AccountPeriodBalanceReportModel>> GetAccountBalanceForPeriodRangeAsync(int accountid, int startperiodid, int endperiodid)
+        public async Task<AccountPeriodBalanceReportModel> GetAccountBalanceForPeriodRangeAsync(int accountid, int startperiodid, int endperiodid)
         {
             return await _accountPeriodBalanceService.GetAccountBalanceForPeriodRangeAsync(new AccountBalancePeriodRangeModel
             {

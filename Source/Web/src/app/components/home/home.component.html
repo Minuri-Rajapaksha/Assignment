@@ -1,7 +1,13 @@
-<p *ngIf="!periodList"><em>Loading...</em></p>
-<select *ngIf="periodList" id='soflow' [(ngModel)]="selectedPeriod" (change)="setPeriod($event.target.value)">
-  <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
-</select>
+<h1>{{ 'staightforwardview.title' | translate }}</h1>
+
+<p>{{ 'staightforwardview.description' | translate }}</p>
+
+<div>
+  <p *ngIf="!periodList"><em>Loading...</em></p>
+  <select *ngIf="periodList" id='soflow' [(ngModel)]="selectedPeriod" (change)="setPeriod($event.target.value)">
+    <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
+  </select>
+</div>
 
 <div class="row">
 

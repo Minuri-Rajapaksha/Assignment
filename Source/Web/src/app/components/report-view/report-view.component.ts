@@ -47,6 +47,7 @@ export class ReportViewComponent implements OnInit {
   }
 
   loadReport() {
+    this.resetChart();
     const startPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.startPeriodId, 10)).periodDate;
     const endPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.endPeriodId, 10)).periodDate;
     if (startPeriodDate > endPeriodDate) {
@@ -64,26 +65,16 @@ export class ReportViewComponent implements OnInit {
         });
   }
 
-  bindData(response: any) {
+  resetChart() {
+    this.chart = [];
+  }
 
+  bindData(response: any) {    
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
-        labels: ['January', 'February', 'March', 'April'],
-        datasets: [
-          {
-            data: [10, 25, 80],
-            label: 'Something3',
-            borderColor: '#3cba9f',
-            fill: false
-          },
-          {
-            data: [50, 88, 11],
-            label: 'Something66',
-            borderColor: '#ffcc00',
-            fill: false
-          },
-        ]
+        labels: response.period,
+        datasets: response.dataSet
       },
       options: {
         legend: {

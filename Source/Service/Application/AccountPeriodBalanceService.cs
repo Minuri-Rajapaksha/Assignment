@@ -6,6 +6,7 @@ using Shared.Model.ServerModel;
 using Shared.Model.WebClientModel;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -59,9 +60,9 @@ namespace Service.Application
             return false;
         }
 
-        public async Task<List<AccountPeriodBalanceReportModel>> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accPeriodBal)
+        public async Task<AccountPeriodBalanceReportModel> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accPeriodBal)
         {
-            var returnVal = new List<AccountPeriodBalanceReportModel>();
+            var returnVal = new AccountPeriodBalanceReportModel();
             using (var uow = await _applicationDbFactory.BeginUnitOfWorkAsync())
             {
                 var periodStartDate = uow.Periods.GetAll().First(i => i.PeriodId == accPeriodBal.StartPeriodId).PeriodDate;
@@ -69,17 +70,21 @@ namespace Service.Application
                 var accounts = uow.Accounts.GetAll().Where(i => i.AccountId == accPeriodBal.AccountId || accPeriodBal.AccountId == 0)
                     .Select(i => new { AccountId = i.AccountId, AccountName = i.AccountName }).OrderBy(i => i.AccountName).ToList();
                 var periods = uow.Periods.GetAll().Where(i => i.PeriodDate >= periodStartDate && i.PeriodDate <= periodEndDate)
-                    .Select(i => new { PeriodId = i.PeriodId, PeriodDate = i.PeriodDate }).ToList();
+                    .Select(i => new { PeriodId = i.PeriodId, PeriodDate = i.PeriodDate, Discription = i.Discription }).
+                    OrderBy(i => i.PeriodDate).ToList();
                 var accountPeriodBalance = uow.AccountPeriodBalances.GetAll()
                     .Where(i => accounts.Select(a => a.AccountId).Contains(i.AccountId) &&
                         periods.Select(p => p.PeriodId).Contains(i.PeriodId))
                     .Select(i => new { PeriodId = i.PeriodId, AccountId = i.AccountId, Balance = i.Balance }).ToList();
 
+                Random rnd = new Random();
+                returnVal.Period = periods.Select(i => i.Discription).ToList();
                 foreach (var account in accounts)
                 {
-                    var accBal = new AccountPeriodBalanceReportModel
+                    var accBal = new ChartDataSet
                     {
                         Data = new List<decimal>(),
+                        BorderColor = "#" + Color.FromArgb(rnd.Next(256), rnd.Next(256), rnd.Next(256)).Name,
                         Label = account.AccountName
                     };
 
@@ -96,7 +101,7 @@ namespace Service.Application
                         }
                     }
 
-                    returnVal.Add(accBal);
+                    returnVal.DataSet.Add(accBal);
                 }
 
                 return returnVal;
