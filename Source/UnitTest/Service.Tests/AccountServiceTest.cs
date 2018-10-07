@@ -1,6 +1,7 @@
 ﻿using Data.DbFactory.Application;
 using Data.Interfaces.UnitOfWork.Application;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
+using Moq;
 using Service.Application;
 using Service.Interfaces.Application;
 using Shared.Constants;
@@ -33,7 +34,7 @@ namespace Service.Tests
         public async Task GetAccountDropdownListAsync()
         {
             // Arrange
-            _mockConfiguration.Setup(c => c.GetValue(ConnectionStrings.ApplicationConnection)).Returns("period-test-01");
+            _mockConfiguration.Setup(c => c.GetValue(It.IsAny<string>())).Returns("accountservice-test-01");
 
             using (var uow = _applicationDbFactory.BeginUnitOfWorkAsync().Result)
             {
@@ -69,6 +70,7 @@ namespace Service.Tests
                 CreatedDate = DateTimeOffset.Now,
                 AccountName = "CEOs Car"
             });
+            await uow.SaveAsync();
         }
         #endregion
     }

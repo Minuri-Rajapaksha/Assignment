@@ -57,7 +57,7 @@ namespace Service.Application
                 await _importProcess.ProcessFileAsync(fileUploadModel);
             }
 
-            return false;
+            return true;
         }
 
         public async Task<AccountPeriodBalanceReportModel> GetAccountBalanceForPeriodRangeAsync(AccountBalancePeriodRangeModel accPeriodBal)

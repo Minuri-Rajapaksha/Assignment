@@ -15,7 +15,7 @@ namespace Service.Tests
         {
             _mockConfiguration = new Mock<IConfiguration>();
             // each unit test wise database should re-create 
-            _mockConfiguration.Setup(c => c.GetValue(ConnectionStrings.ApplicationConnection)).Returns("");
+            _mockConfiguration.Setup(c => c.GetValue(It.IsAny<string>())).Returns("");
         }
 
         #region Test fixture

@@ -40,7 +40,7 @@ namespace Service.Application.BalanceFileUpload
                     var allAccount = uow.Accounts.GetAll();
                     foreach (var item in accountBalances)
                     {
-                        var account = allAccount.FirstOrDefault(a => a.AccountName == item.Key);
+                        var account = allAccount.FirstOrDefault(a => a.AccountName == item.Key.Trim());
                         if (account != null)
                         {
                             var balanceRecord = uow.AccountPeriodBalances.GetAll().FirstOrDefault(b => b.PeriodId == message.PeriodId && b.AccountId == account.AccountId);

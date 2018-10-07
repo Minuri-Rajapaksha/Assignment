@@ -10,6 +10,7 @@ using Shared.Model.DB.Application;
 using System;
 using System.Threading.Tasks;
 using System.Linq;
+using Moq;
 
 namespace Service.Tests
 {
@@ -33,7 +34,7 @@ namespace Service.Tests
         public async Task GetPeriodDropdownListAsync()
         {
             // Arrange
-            _mockConfiguration.Setup(c => c.GetValue(ConnectionStrings.ApplicationConnection)).Returns("period-test-01");
+            _mockConfiguration.Setup(c => c.GetValue(It.IsAny<string>())).Returns("period-test-01");
             using (var uow = _applicationDbFactory.BeginUnitOfWorkAsync().Result)
             {
                 await SeedPeriods(uow);
