@@ -1,13 +1,16 @@
 <div class='main-nav'>
     <div class='navbar navbar-inverse'>
         <div class='navbar-header'>
-            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse' [attr.aria-expanded]='isExpanded' (click)='toggle()'>
+            <button type='button' class='navbar-toggle' data-toggle='collapse' data-target='.navbar-collapse'
+                [attr.aria-expanded]='isExpanded' (click)='toggle()'>
                 <span class='sr-only'>Toggle navigation</span>
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class='navbar-brand' [routerLink]='["/"]'>ImplicitFlow_ClientSide</a>
+            <a class="logout" (click)='logOut()'>
+                <span class='glyphicon glyphicon-log-out'></span> LogOut
+            </a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
