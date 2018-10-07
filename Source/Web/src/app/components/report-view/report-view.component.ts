@@ -69,7 +69,7 @@ export class ReportViewComponent implements OnInit {
     this.chart = [];
   }
 
-  bindData(response: any) {    
+  bindData(response: any) {
     this.chart = new Chart('canvas', {
       type: 'line',
       data: {
