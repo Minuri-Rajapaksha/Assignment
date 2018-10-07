@@ -16,7 +16,11 @@ export class ApiService {
     private _baseUrl: string;
 
     constructor(private http: HttpClient, private authService: AuthService) {
-        this._baseUrl = Api.BASE_URL;
+        if (window.location.hostname === 'localhost') {
+            this._baseUrl = `https://localhost:44310/api/`;
+        } else {
+            this._baseUrl = `https://webapiminuri.scm.azurewebsites.net/api/`;
+        }
     }
 
     private handleError(error: HttpErrorResponse) {

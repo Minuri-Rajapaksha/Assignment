@@ -17,16 +17,17 @@ export class AuthService {
   }
 
   getClientSettings(): UserManagerSettings {
+    const host = window.location.origin;
     return {
-      authority: 'https://localhost:44357',
+      authority: 'https://authminuri.azurewebsites.net',
       client_id: 'grantTypeImplicit',
-      redirect_uri: 'http://localhost:5896/signin-oidc',
+      redirect_uri: `${host}/signin-oidc`,
       // silent_redirect_uri should go to seperate html
       automaticSilentRenew: true,
-      silent_redirect_uri: 'http://localhost:5896/signin-oidc',
+      silent_redirect_uri: `${host}/signin-oidc`,
       // Check what is purpose of checkSessionInterval property
       checkSessionInterval: 1800,
-      post_logout_redirect_uri: 'http://localhost:5896/signout-oidc',
+      post_logout_redirect_uri: `${host}/signout-oidc`,
       response_type: 'id_token token',
       scope: 'openid profile webapi.full_access',
       filterProtocolClaims: true,

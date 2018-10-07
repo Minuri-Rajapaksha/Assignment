@@ -1,5 +1,4 @@
 {
-    "BASE_URL": "https://localhost:44310/api/",
     "accountPeriodBalance": {
       "getAccountBalanceForPeriod": "accountperiodbalance/"
     },
