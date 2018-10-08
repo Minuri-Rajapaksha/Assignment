@@ -130,7 +130,7 @@ namespace Service.Tests
             {
                 await SeedAccounts(uow);
                 // Act
-                var actualResult = await _accountPeriodBalanceService.UploadAndImportFile(1, null, "testFile.txt");
+                var actualResult = await _accountPeriodBalanceService.UploadAndImportFile(1, null, "testFile.txt", 1);
 
                 // Assert
                 Assert.IsTrue(actualResult, "UploadAndImportFile error");

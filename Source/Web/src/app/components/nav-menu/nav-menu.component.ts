@@ -7,8 +7,8 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
-  role = sessionStorage.getItem('role');
-  username = sessionStorage.getItem('username');
+  role = localStorage.getItem('role');
+  username = localStorage.getItem('username');
 
   collapse() {
     this.isExpanded = false;
@@ -19,7 +19,7 @@ export class NavMenuComponent {
   }
 
   logOut() {
-    sessionStorage.clear();
+    localStorage.clear();
     
     if (window.location.hostname === 'localhost') {
       window.open(`https://localhost:44357/api/account/logout`, '_self');
