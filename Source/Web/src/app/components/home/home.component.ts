@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { HttpClient, HttpEventType, HttpResponse } from '@angular/common/http';
 import { Uploader } from '../../../entities/uploader';
 import { ApiService } from '../../../services/api-service';
 import { Period } from '../../../entities/period';
@@ -16,9 +15,9 @@ export class HomeComponent implements OnInit {
     uploader: Uploader;
     periodList: Period[];
     selectedPeriod: number;
-    uploadOk = '';
+    uploading : boolean;
 
-    constructor(private http: HttpClient, private _apiService: ApiService, private toaster: ToastrService) { }
+    constructor(private _apiService: ApiService, private toaster: ToastrService) { }
 
     ngOnInit() {
         this.getAllPeriods();
@@ -30,12 +29,8 @@ export class HomeComponent implements OnInit {
                 this.periodList = res;
             },
                 err => {
-                    console.error(`Error occured retrieving resource canlendar ${err}`);
+                    console.error(`Error occured retrieving periods ${err}`);
                 });
-    }
-
-    setPeriod(periodId: number) {
-        this.selectedPeriod = periodId;
     }
 
     onSelectChange(event: EventTarget) {
@@ -58,8 +53,7 @@ export class HomeComponent implements OnInit {
     }
 
     // upload
-    upload() {
-        this.uploadOk = undefined;
+    upload() {        
         if (this.uploader.id == null) {
             return;
         }
@@ -67,17 +61,16 @@ export class HomeComponent implements OnInit {
             this.toaster.error('Please select a period');
             return;
         }
-
         const selectedFile = this.uploader;
         if (selectedFile) {
+            this.uploading = true;
             const formData = new FormData();
             formData.append(selectedFile.file.name, selectedFile.file);
             formData.append('PERIOD', this.selectedPeriod.toString());
 
             this._apiService.post(API.fileupload, formData)
                 .subscribe(res => {
-                    this.uploadOk = 'ok';
-                    this.uploader = undefined;
+                    this.uploading = false;                    
                     if (res === true) {
                         this.toaster.success('Processing data...', 'File Uploaded Successfully');
                     }
@@ -87,9 +80,10 @@ export class HomeComponent implements OnInit {
                 },
                     err => {
                         this.toaster.error(`${err}`, 'File Uploaded Failed');
-                        console.error(`Error occured retrieving resource canlendar ${err}`);
                     });
         }
+        this.uploader = undefined;
+        this.selectedPeriod = undefined;
     }
 
     // cancel all

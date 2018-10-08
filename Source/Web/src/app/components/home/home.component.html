@@ -1,11 +1,11 @@
-<h1>{{ 'home.title' | translate }}</h1>
+<h3>{{ 'home.title' | translate }}</h3>
 
 <p>{{ 'home.description' | translate }}</p>
 
 <div>
   <p *ngIf="!periodList"><em>Loading...</em></p>
-  <select *ngIf="periodList" id='soflow' [(ngModel)]="selectedPeriod" (change)="setPeriod($event.target.value)">
-    <option [ngValue]="undefined" disabled  selected> Select a period </option>
+  <select *ngIf="periodList" id='soflow' [(ngModel)]="selectedPeriod">
+    <option [ngValue]="undefined" disabled selected> Select a period </option>
     <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
   </select>
 </div>
@@ -13,18 +13,10 @@
 <div class="row">
 
   <div class="col-md-3" *ngIf='uploader === undefined'>
-    <h3>Select file</h3>
-
-    <!-- Example: nv-file-select="" uploader="{Object}" options="{Object}" filters="{String}" -->
-    <input type="file" id="file" uploader="uploader" (change)="onSelectChange($event)" *ngIf='uploader === undefined'
-      accept=".xlsx,.txt, .xlsm" /><br />
-    <div id="result"></div>
-    <div class="dropzone" appDnd (filesChangeEmiter)="onFilesChange($event)">
-      <div class="text-wrapper titlestyle">
-        <div class="centered">Drop your file here!</div>
-      </div>
-    </div>
+    <h3>Select file</h3>    
+    <input type="file" uploader="uploader" (change)="onSelectChange($event)" *ngIf='uploader === undefined' accept=".xlsx,.txt, .xlsm" /><br />    
   </div>
+
   <div class="col-md-9 uploaded" *ngIf='uploader !== undefined'>
     <h3>Added File</h3>
 
@@ -32,35 +24,31 @@
       <thead>
         <tr>
           <th width="50%">Name</th>
-          <th ng-show="uploader.isHTML5">Size</th>
-          <th ng-show="uploader.isHTML5">Progress</th>
+          <th>Size</th>
+          <th>Progress</th>
         </tr>
       </thead>
       <tbody>
         <tr>
           <td>
             <strong>{{ uploader.file.name }}</strong>
-            <div ng-show="uploader.isHTML5" ng-thumb="{ file: uploader._file, height: 100 }"></div>
           </td>
-          <td ng-show="uploader.isHTML5" nowrap>{{ uploader.file.size/1024/1024 | number }} MB</td>
-          <td ng-show="uploader.isHTML5">
-            <!-- <div class="progress" style="margin-bottom: 0;">
-              <div class="progress-bar" role="progressbar" [ngStyle]="{ 'width': uploader.progress + '%' }"></div>
-            </div> -->
-            <p *ngIf="uploadOk === undefined"><em>Uploading...</em></p>
+          <td>{{ uploader.file.size/1024/1024 | number }} MB</td>
+          <td>
+            <p *ngIf="uploading"><em>Uploading...</em></p>
           </td>
         </tr>
       </tbody>
     </table>
-    <div>
 
+    <div>
       <button type="button" class="btn btn-success btn-s" (click)="upload()">
         <span class="glyphicon glyphicon-upload"></span> Upload
       </button>&nbsp;
       <button type="button" class="btn btn-warning btn-s" (click)="cancelAll()">
         <span class="glyphicon glyphicon-ban-circle"></span> Cancel
       </button>
-
     </div>
+
   </div>
 </div>

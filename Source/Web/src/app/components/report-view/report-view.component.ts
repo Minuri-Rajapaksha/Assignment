@@ -56,18 +56,17 @@ export class ReportViewComponent implements OnInit {
     const startPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.startPeriodId, 10)).periodDate;
     const endPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.endPeriodId, 10)).periodDate;
 
-
-    if (startPeriodDate > endPeriodDate) {
+    if (startPeriodDate >= endPeriodDate) {
       this.toaster.error('', 'Error - Start period should smaller than end period');
       return;
     }
     this._apiService.get(API.accountPeriodBalance.getAccountBalanceForPeriod +
       `${this.accountId}/${this.startPeriodId}/${this.endPeriodId}`)
-      .subscribe(res => {
-        console.log(res);
+      .subscribe(res => {        
         this.bindData(res);
       },
         err => {
+          this.toaster.error('', `Error occured retrieving account balance report ${err}`);
           console.error(`Error occured retrieving account balance report ${err}`);
         });
   }
