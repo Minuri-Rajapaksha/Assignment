@@ -21,6 +21,7 @@ using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using Service.Interfaces.Application;
 using Shared.Constants;
+using Swashbuckle.AspNetCore.Swagger;
 using WebApi.Security;
 
 namespace WebApi
@@ -89,6 +90,12 @@ namespace WebApi
                         .AllowAnyMethod();
                 });
             });
+
+            // Register the Swagger generator, defining one or more Swagger documents  
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new Info { Title = "Assignment API", Version = "v1" });
+            });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -119,6 +126,15 @@ namespace WebApi
             app.ApplicationServices.GetService<IDatabaseInitializerService>().EnsureMigrationAsync().Wait();
 
             app.ApplicationServices.GetService<IDatabaseInitializerService>().SeedDataAsync().Wait();
+
+            // Enable middleware to serve generated Swagger as a JSON endpoint.  
+            app.UseSwagger();
+
+            // Enable middleware to serve swagger-ui (HTML, JS, CSS, etc.), specifying the Swagger JSON endpoint.  
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment API V1");
+            });
         }
 
         private Task OnTokenValidated(TokenValidatedContext context)
