@@ -12,7 +12,9 @@ export class AuthService {
 
   constructor(private routeService: Router) {
     this.manager.getUser().then(user => {
-      this.user = user;
+      this.user = user;     
+      sessionStorage.setItem('role', user.profile.Role);
+      sessionStorage.setItem('username', user.profile.name);
     });
   }
 

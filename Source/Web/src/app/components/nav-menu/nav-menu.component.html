@@ -8,14 +8,16 @@
                 <span class='icon-bar'></span>
                 <span class='icon-bar'></span>
             </button>
-            <a class="logout" (click)='logOut()'>
-                <span class='glyphicon glyphicon-log-out'></span> LogOut
-            </a>
         </div>
         <div class='clearfix'></div>
         <div class='navbar-collapse collapse' [ngClass]='{ "in": isExpanded }'>
-            <ul class='nav navbar-nav'>
+            <ul class='nav navbar-nav logout'>
                 <li [routerLinkActive]='["link-active"]'>
+                    <a (click)='logOut()'>
+                        <span class='glyphicon glyphicon-log-out'></span> LogOut - {{username}}
+                    </a>
+                </li>
+                <li [routerLinkActive]='["link-active"]' *ngIf="role === '1'">
                     <a [routerLink]='["/upload-balance"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-upload'></span> Upload File
                     </a>
@@ -25,7 +27,7 @@
                         <span class='glyphicon glyphicon-th-list'></span> Straightforward View
                     </a>
                 </li>
-                <li [routerLinkActive]='["link-active"]'>
+                <li [routerLinkActive]='["link-active"]'  *ngIf="role === '1'">
                     <a [routerLink]='["/report-view"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-dashboard'></span> Report View
                     </a>

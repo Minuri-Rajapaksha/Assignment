@@ -5,7 +5,7 @@
 
 <p *ngIf="!periodList"><em>Loading...</em></p>
 
-<select *ngIf="periodList" id='soflow' (change)="getAccountBalanceForPeriod($event.target.value)">
+<select *ngIf="periodList" id='soflow' [ngModel]="periodId" (change)="getAccountBalanceForPeriod($event.target.value)">
     <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
   </select>
 

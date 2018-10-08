@@ -13,6 +13,7 @@ export class StraightforwardViewComponent implements OnInit {
 
   accountPeriodBalance: AccountPeriodBalance[];
   periodList: Period[];
+  periodId: number;
 
   constructor(private _apiService: ApiService) { }
 
@@ -22,12 +23,12 @@ export class StraightforwardViewComponent implements OnInit {
 
   getAllPeriods() {
     this._apiService.get(API.period.getDropdownList)
-    .subscribe(res => {
-      this.periodList = res;
-    },
-      err => {
-        console.error(`Error occured retrieving periods ${err}`);
-      });
+      .subscribe(res => {
+        this.periodList = res;
+      },
+        err => {
+          console.error(`Error occured retrieving periods ${err}`);
+        });
   }
 
   getAccountBalanceForPeriod(periodId: number) {

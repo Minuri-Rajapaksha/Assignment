@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class NavMenuComponent {
   isExpanded = false;
+  role = sessionStorage.getItem('role');
+  username = sessionStorage.getItem('username');
 
   collapse() {
     this.isExpanded = false;
@@ -22,5 +24,8 @@ export class NavMenuComponent {
     } else {
       window.open(`https://authminuri.azurewebsites.net/account/logout`, '_self');
     }
+   
+    sessionStorage.clear();
+    sessionStorage.removeItem('urlBeforeRedirectToLogin');
   }
 }
