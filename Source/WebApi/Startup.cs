@@ -61,7 +61,6 @@ namespace WebApi
 
             services.AddMvc(config =>
             {
-                config.Filters.Add(typeof(ExceptionsFilterAttribute));
                 config.Filters.Add(new AuthorizeFilter(
                         new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
