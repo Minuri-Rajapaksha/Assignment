@@ -19,12 +19,8 @@ export class NavMenuComponent {
   }
 
   logOut() {
-    localStorage.clear();
+    sessionStorage.clear();
     
-    if (window.location.hostname === 'localhost') {
-      window.open(`https://localhost:44357/api/account/logout`, '_self');
-    } else {
-      window.open(`https://authminuri.azurewebsites.net/account/logout`, '_self');
-    }    
+    window.open(`https://authminuri.azurewebsites.net/account/logout`, '_self');   
   }
 }
