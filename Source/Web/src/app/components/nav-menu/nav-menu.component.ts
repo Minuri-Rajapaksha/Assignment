@@ -24,7 +24,7 @@ export class NavMenuComponent {
     } else {
       window.open(`https://authminuri.azurewebsites.net/account/logout`, '_self');
     }
-   
+
     sessionStorage.clear();
     sessionStorage.removeItem('urlBeforeRedirectToLogin');
   }

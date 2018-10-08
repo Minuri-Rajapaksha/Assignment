@@ -46,14 +46,14 @@ export class HomeComponent implements OnInit {
         const extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
         if (file.size / 1024 / 1024 > 2) {
-            this.toaster.error("File size exceeds 1MB");
+            this.toaster.error('File size exceeds 1MB');
         }
         if (extension === 'xlsx' || extension === 'txt' || extension === 'xlsm') {
             if (file) {
                 this.uploader = new Uploader(file);
             }
         } else {
-            this.toaster.error("Invalid file type");
+            this.toaster.error('Invalid file type');
         }
     }
 
@@ -64,7 +64,7 @@ export class HomeComponent implements OnInit {
             return;
         }
         if (this.selectedPeriod === undefined) {
-            this.toaster.error("Please select a period");
+            this.toaster.error('Please select a period');
             return;
         }
 
@@ -73,18 +73,20 @@ export class HomeComponent implements OnInit {
             const formData = new FormData();
             formData.append(selectedFile.file.name, selectedFile.file);
             formData.append('PERIOD', this.selectedPeriod.toString());
-            
+
             this._apiService.post(API.fileupload, formData)
                 .subscribe(res => {
                     this.uploadOk = 'ok';
                     this.uploader = undefined;
-                    if(res === true)
-                        this.toaster.success("Processing data...", "File Uploaded Successfully");
-                    else
-                        this.toaster.error("Template is not valid","Error!" );
+                    if (res === true) {
+                        this.toaster.success('Processing data...', 'File Uploaded Successfully');
+                    }
+                    else {
+                        this.toaster.error('Template is not valid', 'Error!');
+                    }
                 },
                     err => {
-                        this.toaster.error(`${err}`,"File Uploaded Failed");
+                        this.toaster.error(`${err}`, 'File Uploaded Failed');
                         console.error(`Error occured retrieving resource canlendar ${err}`);
                     });
         }

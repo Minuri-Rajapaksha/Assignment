@@ -18,7 +18,7 @@ export class ReportViewComponent implements OnInit {
   chart = [];
   startPeriodId: number;
   endPeriodId: number;
-  accountId: number = 0;
+  accountId: any = 0;
 
   constructor(private _apiService: ApiService, private toaster: ToastrService) { }
 
@@ -49,16 +49,16 @@ export class ReportViewComponent implements OnInit {
 
   loadReport() {
     this.resetChart();
-    if(this.startPeriodId === undefined || this.endPeriodId === undefined){
-      this.toaster.error("","Error - Select start and end periods");
+    if (this.startPeriodId === undefined || this.endPeriodId === undefined) {
+      this.toaster.error('', 'Error - Select start and end periods');
       return;
     }
     const startPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.startPeriodId, 10)).periodDate;
     const endPeriodDate = this.periodList.find(i => i.periodId === parseInt(<any>this.endPeriodId, 10)).periodDate;
 
-    
-    if (startPeriodDate > endPeriodDate) {     
-      this.toaster.error("","Error - Start period should smaller than end period");
+
+    if (startPeriodDate > endPeriodDate) {
+      this.toaster.error('', 'Error - Start period should smaller than end period');
       return;
     }
     this._apiService.get(API.accountPeriodBalance.getAccountBalanceForPeriod +
