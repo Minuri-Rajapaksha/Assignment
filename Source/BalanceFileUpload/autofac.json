@@ -4,12 +4,7 @@
       // IApplicationDbFactory
       "type": "Data.DbFactory.Application.ApplicationDbFactory, Data",
       "services": [ { "type": "Data.Interfaces.DbFactory.Application.IApplicationDbFactory, Data" } ]
-    },
-    {
-      // ILogService
-      "type": "Service.Application.LogService, Service",
-      "services": [ { "type": "Service.Interfaces.Application.ILogService, Service" } ]
-    },
+    },   
     {
       // IBalanceFileUpload
       "type": "Service.Application.BackgroundWorker.BalanceFileUpload, Service",

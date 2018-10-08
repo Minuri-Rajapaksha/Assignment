@@ -22,6 +22,7 @@ using Microsoft.Extensions.Options;
 using Service.Interfaces.Application;
 using Shared.Constants;
 using Swashbuckle.AspNetCore.Swagger;
+using WebApi.Filter;
 using WebApi.Security;
 
 namespace WebApi
@@ -60,6 +61,7 @@ namespace WebApi
 
             services.AddMvc(config =>
             {
+                config.Filters.Add(typeof(ExceptionsFilterAttribute));
                 config.Filters.Add(new AuthorizeFilter(
                         new AuthorizationPolicyBuilder()
                         .RequireAuthenticatedUser()
