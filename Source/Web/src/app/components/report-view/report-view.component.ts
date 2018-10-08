@@ -62,7 +62,7 @@ export class ReportViewComponent implements OnInit {
     }
     this._apiService.get(API.accountPeriodBalance.getAccountBalanceForPeriod +
       `${this.accountId}/${this.startPeriodId}/${this.endPeriodId}`)
-      .subscribe(res => {        
+      .subscribe(res => {
         this.bindData(res);
       },
         err => {

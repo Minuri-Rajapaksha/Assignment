@@ -15,7 +15,7 @@ export class HomeComponent implements OnInit {
     uploader: Uploader;
     periodList: Period[];
     selectedPeriod: number;
-    uploading : boolean;
+    uploading: boolean;
 
     constructor(private _apiService: ApiService, private toaster: ToastrService) { }
 
@@ -53,7 +53,7 @@ export class HomeComponent implements OnInit {
     }
 
     // upload
-    upload() {        
+    upload() {
         if (this.uploader.id == null) {
             return;
         }
@@ -70,11 +70,10 @@ export class HomeComponent implements OnInit {
 
             this._apiService.post(API.fileupload, formData)
                 .subscribe(res => {
-                    this.uploading = false;                    
+                    this.uploading = false;
                     if (res === true) {
                         this.toaster.success('Processing data...', 'File Uploaded Successfully');
-                    }
-                    else {
+                    } else {
                         this.toaster.error('Template is not valid', 'Error!');
                     }
                 },
