@@ -12,7 +12,8 @@ namespace WebApi.Filter
         public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
         {
             IEnumerable<Claim> claims = ((ClaimsIdentity)context.HttpContext.User.Identity).Claims;
-            if (claims.First(c => c.Type == "Role").Value != Shared.Enum.Role.Admin.ToString())
+            
+            if (claims.First(c => c.Type == "Role").Value != ((Int32)Shared.Enum.Role.Admin).ToString())
             {
                 throw new UnauthorizedAccessException();
             }
