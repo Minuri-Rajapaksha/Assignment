@@ -1,8 +1,8 @@
-
+import { Observable, Subject } from 'rxjs';
 import { UserManager, UserManagerSettings, User } from 'oidc-client';
 import { HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
-import { Component, Inject } from '@angular/core';
+import { Inject } from '@angular/core';
 
 @Inject(Router)
 export class AuthService {
@@ -13,9 +13,15 @@ export class AuthService {
   constructor(private routeService: Router) {
     this.manager.getUser().then(user => {
       this.user = user;
-      localStorage.setItem('role', user.profile.Role);
-      localStorage.setItem('username', user.profile.name);
     });
+  }
+
+  getUser(): Observable<User> {
+    const subject = new Subject<User>();
+    this.manager.getUser().then(user => {
+      subject.next(user);
+    });
+    return subject.asObservable();
   }
 
   getClientSettings(): UserManagerSettings {

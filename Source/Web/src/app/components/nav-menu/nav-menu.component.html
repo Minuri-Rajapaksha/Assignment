@@ -17,7 +17,7 @@
                         <span class='glyphicon glyphicon-log-out'></span> LogOut - {{username}}
                     </a>
                 </li>
-                <li [routerLinkActive]='["link-active"]' *ngIf="role === '1'">
+                <li [routerLinkActive]='["link-active"]' *ngIf="isAdmin">
                     <a [routerLink]='["/upload-balance"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-upload'></span> Upload File
                     </a>
@@ -27,7 +27,7 @@
                         <span class='glyphicon glyphicon-th-list'></span> Straightforward View
                     </a>
                 </li>
-                <li [routerLinkActive]='["link-active"]'  *ngIf="role === '1'">
+                <li [routerLinkActive]='["link-active"]'  *ngIf="isAdmin">
                     <a [routerLink]='["/report-view"]' (click)='collapse()'>
                         <span class='glyphicon glyphicon-dashboard'></span> Report View
                     </a>
