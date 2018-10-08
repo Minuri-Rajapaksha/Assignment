@@ -6,5 +6,6 @@ namespace Service.Interfaces.Application
     public interface ILogService
     {
         Task LogErrorAsync(Exception exception);
+        Task LogInfoAsync(string message);
     }
 }

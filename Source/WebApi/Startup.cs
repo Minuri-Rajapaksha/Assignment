@@ -99,7 +99,7 @@ namespace WebApi
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
             if (env.IsDevelopment())
             {
@@ -135,6 +135,9 @@ namespace WebApi
             {
                 c.SwaggerEndpoint("/swagger/v1/swagger.json", "Assignment API V1");
             });
+
+            loggerFactory.AddFile("Logs/Assignment-{Date}.txt");
+            loggerFactory.AddDebug();
         }
 
         private Task OnTokenValidated(TokenValidatedContext context)
