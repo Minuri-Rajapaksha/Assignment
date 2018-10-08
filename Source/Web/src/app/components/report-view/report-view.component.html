@@ -1,15 +1,16 @@
-<p>
-  report-view works!
-</p>
+<h1>{{ 'reportview.title' | translate }}</h1>
 
-<p *ngIf="!periodList"><em>Loading...</em></p>
-<div class="row">
+<p>{{ 'reportview.description' | translate }}</p>
+
+<p *ngIf="!periodList && !accountList"><em>Loading...</em></p>
+<div class="row"  *ngIf="periodList && accountList">
   <div class="align-to-left">
     <div>
       From
     </div>
     <div>
-      <select *ngIf="periodList" class="dropdownstyle" id='soflow' [(ngModel)]="startPeriodId">
+      <select class="dropdownstyle" id='soflow' [(ngModel)]="startPeriodId">
+          <option [ngValue]="undefined" disabled  selected> Select a period </option>
         <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
       </select>
     </div>
@@ -19,7 +20,8 @@
       To
     </div>
     <div>
-      <select *ngIf="periodList" class="dropdownstyle" id='soflow' [(ngModel)]="endPeriodId">
+      <select class="dropdownstyle" id='soflow' [(ngModel)]="endPeriodId">
+          <option [ngValue]="undefined" disabled  selected> Select a period </option>
         <option *ngFor="let period of periodList" value="{{period.periodId}}">{{period.discription}}</option>
       </select>
     </div>
@@ -29,7 +31,7 @@
       Account
     </div>
     <div>
-      <select *ngIf="accountList" class="dropdownstyle" id='soflow' [(ngModel)]="accountId">
+      <select class="dropdownstyle" id='soflow' [(ngModel)]="accountId">
         <option value="0">All</option>
         <option *ngFor="let account of accountList" value="{{account.accountId}}">{{account.accountName}}</option>
       </select>

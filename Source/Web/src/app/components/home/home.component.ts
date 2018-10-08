@@ -4,6 +4,7 @@ import { Uploader } from '../../../entities/uploader';
 import { ApiService } from '../../../services/api-service';
 import { Period } from '../../../entities/period';
 import API from '../../../services/api-config.json';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     selector: 'app-home',
@@ -17,7 +18,7 @@ export class HomeComponent implements OnInit {
     selectedPeriod: number;
     uploadOk = '';
 
-    constructor(private http: HttpClient, private _apiService: ApiService) { }
+    constructor(private http: HttpClient, private _apiService: ApiService, private toaster: ToastrService) { }
 
     ngOnInit() {
         this.getAllPeriods();
@@ -45,14 +46,14 @@ export class HomeComponent implements OnInit {
         const extension = file.name.substring(file.name.lastIndexOf('.') + 1);
 
         if (file.size / 1024 / 1024 > 2) {
-            alert('1MB exceeds');
+            this.toaster.error("File size exceeds 1MB");
         }
         if (extension === 'xlsx' || extension === 'txt' || extension === 'xlsm') {
             if (file) {
                 this.uploader = new Uploader(file);
             }
         } else {
-            alert('invalid extension');
+            this.toaster.error("Invalid file type");
         }
     }
 
@@ -63,7 +64,7 @@ export class HomeComponent implements OnInit {
             return;
         }
         if (this.selectedPeriod === undefined) {
-            alert('Please select period');
+            this.toaster.error("Please select a period");
             return;
         }
 
@@ -72,41 +73,20 @@ export class HomeComponent implements OnInit {
             const formData = new FormData();
             formData.append(selectedFile.file.name, selectedFile.file);
             formData.append('PERIOD', this.selectedPeriod.toString());
-
-            // this._apiService.uploadFile('accountperiodbalance', formData)
+            
             this._apiService.post(API.fileupload, formData)
                 .subscribe(res => {
                     this.uploadOk = 'ok';
-                    alert(res);
                     this.uploader = undefined;
-                    if (res.type === HttpEventType.UploadProgress) {
-                        // selectedFile.progress = Math.round(100 * res.loaded / res.total);
-                        // console.log(selectedFile.progress);
-                    }
+                    if(res === true)
+                        this.toaster.success("Processing data...", "File Uploaded Successfully");
+                    else
+                        this.toaster.error("Template is not valid","Error!" );
                 },
                     err => {
+                        this.toaster.error(`${err}`,"File Uploaded Failed");
                         console.error(`Error occured retrieving resource canlendar ${err}`);
                     });
-            // this._apiService.upload('accountperiodbalance', this.uploader.file)
-            // .subscribe(
-            //   event => {
-            //     if (event.type == HttpEventType.UploadProgress) {
-            //       const percentDone = Math.round(100 * event.loaded / event.total);
-            //       // console.log(`File is ${percentDone}% loaded.`);
-            //       //this.progress = percentDone;
-            //     } else if (event instanceof HttpResponse) {
-            //      // this.final = 100;
-            //     }
-            //   },
-            //   (err) => {
-            //    // this.toaster.error("Error");
-            //     return false;
-            //   }, () => {
-            //     // this.toaster.success(this.translateLabels['uploadSuccess']);
-            //     //this.toaster.success("Uploaded Successfully !")
-            //     return true;
-            //   });
-
         }
     }
 

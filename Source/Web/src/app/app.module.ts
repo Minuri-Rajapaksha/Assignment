@@ -22,6 +22,10 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 // file upload
 import { FileSelectDirective } from 'ng2-file-upload';
 
+// toaster
+import { ToastrModule } from 'ngx-toastr';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -37,6 +41,12 @@ import { FileSelectDirective } from 'ng2-file-upload';
     HttpClientModule,
     AppRoutingModule,
     FormsModule,
+    BrowserAnimationsModule,
+    ToastrModule.forRoot({
+      timeOut: 5000,
+      positionClass: 'toast-bottom-right',
+      preventDuplicates: true,
+    }),
     TranslateModule.forRoot({
       loader: {
         provide: TranslateLoader,

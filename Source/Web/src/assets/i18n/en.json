@@ -1,6 +1,10 @@
 {
     "staightforwardview.title": "StrightForward View",
     "staightforwardview.description": "This component demonstrates straightforward view of account balance period wise.",
+    "home.title": "Upload account balance file",
+    "home.description": "This component demonstrates upload excel or text file and save account balances in database.",
+    "reportview.title": "Report view of account balances",
+    "reportview.description": "This component demonstrates report view of account balances period range wise.",
     "account": "Account",
     "balance": "Balance"
 }

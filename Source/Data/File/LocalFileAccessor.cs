@@ -60,6 +60,8 @@ namespace Data.File
                         var rawText = string.Empty;
                         for (int col = 1; col <= ColCount; col++)
                         {
+                            if (worksheet.Cells[row, col].Value == null)
+                                continue;
                             rawText += worksheet.Cells[row, col].Value.ToString() + "\t";
                         }
                         rowArray.Add(rawText);
