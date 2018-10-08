@@ -70,6 +70,10 @@ export class AuthService {
     return this.manager.signinRedirectCallback().then(user => {
       this.routeService.navigateByUrl(sessionStorage.getItem('urlBeforeRedirectToLogin'));
       this.user = user;
+      if (sessionStorage.getItem('userLoad') === null) {
+        sessionStorage.setItem('userLoad', 'true');
+        location.reload();
+      }
     });
   }
 }
