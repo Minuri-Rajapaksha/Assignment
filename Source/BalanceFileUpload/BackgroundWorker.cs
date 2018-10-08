@@ -10,12 +10,10 @@ namespace BalanceFileUpload
 {
     public class BackgroundWorker : BackgroundService
     {
-        private readonly ILogService _logService;
         private readonly IBalanceFileUpload _balanceFileUpload;
 
         public BackgroundWorker()
         {
-            _logService = AutoFacConfig.Resolve<ILogService>();
             _balanceFileUpload = AutoFacConfig.Resolve<IBalanceFileUpload>();
         }
 
@@ -32,7 +30,6 @@ namespace BalanceFileUpload
             }
             catch (Exception ex)
             {
-                await _logService.LogErrorAsync(ex);
                 throw ex;
             }
         }
